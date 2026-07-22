@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Cardlyai - Free AI-powered invitation card generator. Create stunning birthday, wedding, party, and festival invitation cards online with beautiful templates and custom designs." />
+  <meta name="keywords" content="invitation card generator, free digital wedding cards, birthday invitation templates, party invite maker, online card creator, AI invitation designer, festival eid cards, formal dinner invitations" />
+  <meta name="author" content="Cardlyai" />
+  <meta name="robots" content="index, follow" />
+
+  <meta property="og:title" content="Cardlyai - AI & Template-Based Invitation Card Generator" />
+  <meta property="og:description" content="Create beautiful, professional invitation cards for any occasion. Free online card maker with stunning templates." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://Cardlyai.netlify.app" />
+
+  <title>Cardlyai - AI & Template-Based Invitation Card Generator | Free Online</title>
+  <link rel="icon" href="assets/logo.ico" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER / NAVIGATION ===== -->
+  <header class="site-header" id="siteHeader">
+    <nav class="nav-container" aria-label="Main navigation">
+      <a href="#" class="logo" aria-label="Cardlyai Home">
+        <img src="assets/logo.png" alt="Cardlyai Logo" class="logo-img" />
+        <span class="logo-text">Card<span class="logo-accent">lyai</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#generator">Card Generator</a></li>
+        <li><a href="#custom">Custom Card</a></li>
+          <li><a href="blog.html">Blog</a></li>
+      </ul>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero" id="home">
+      <div class="hero-bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+      </div>
+      <div class="hero-content">
+        <img src="assets/logo.png" alt="Cardlyai Logo" class="hero-logo"  />
+        <p class="hero-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> AI-Powered Card Designer</p>
+        <h1 class="hero-title">Create Stunning <span class="gradient-text">Invitation Cards</span> in Minutes</h1>
+        <p class="hero-subtitle">Design beautiful, professional invitation cards for weddings, birthdays, parties, and festivals — completely free. Choose a template or build your own from scratch.</p>
+        <div class="hero-actions">
+          <a href="#generator" class="btn btn-primary"><i class="fa-solid fa-clone"></i> Use Templates</a>
+          <a href="#custom" class="btn btn-secondary"><i class="fa-solid fa-palette"></i> Design Custom</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">50+</span>
+            <span class="stat-label">Templates</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Free</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">HD</span>
+            <span class="stat-label">Quality</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TEMPLATE CARD GENERATOR ===== -->
+    <section class="generator-section" id="generator">
+      <div class="section-header">
+        <h2 class="section-title">Template-Based Card Generator</h2>
+        <p class="section-desc">Pick a category, choose a template, fill in your details, and download your card instantly.</p>
+      </div>
+
+      <!-- Category Tabs -->
+      <div class="category-tabs" role="tablist" aria-label="Card categories">
+        <button class="tab-btn active" data-category="birthday" role="tab" aria-selected="true" aria-controls="panel-birthday">
+          <i class="fa-solid fa-cake-candles"></i> Birthday
+        </button>
+        <button class="tab-btn" data-category="wedding" role="tab" aria-selected="false" aria-controls="panel-wedding">
+          <i class="fa-solid fa-heart"></i> Wedding
+        </button>
+        <button class="tab-btn" data-category="party" role="tab" aria-selected="false" aria-controls="panel-party">
+          <i class="fa-solid fa-champagne-glasses"></i> Party
+        </button>
+        <button class="tab-btn" data-category="formal" role="tab" aria-selected="false" aria-controls="panel-formal">
+          <i class="fa-solid fa-utensils"></i> Formal Dinner
+        </button>
+        <button class="tab-btn" data-category="festival" role="tab" aria-selected="false" aria-controls="panel-festival">
+          <i class="fa-solid fa-moon"></i> Festival / Eid
+        </button>
+      </div>
+
+      <div class="generator-layout">
+        <!-- Control Panel (Sidebar) -->
+        <aside class="control-panel" aria-label="Card customization controls">
+          <h3 class="panel-title">Customize Your Card</h3>
+
+          <!-- Template Selector -->
+          <div class="control-group">
+            <label class="control-label">Choose Template</label>
+            <div class="template-grid" id="templateGrid">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label for="eventName" class="control-label">Event Name</label>
+            <input type="text" id="eventName" class="control-input" placeholder="e.g. Sarah's 25th Birthday" maxlength="60" />
+          </div>
+
+          <div class="control-group">
+            <label for="hostName" class="control-label">Host Name</label>
+            <input type="text" id="hostName" class="control-input" placeholder="e.g. The Johnson Family" maxlength="60" />
+          </div>
+
+          <div class="control-group">
+            <label for="eventDate" class="control-label">Date &amp; Time</label>
+            <input type="datetime-local" id="eventDate" class="control-input" />
+          </div>
+
+          <div class="control-group">
+            <label for="eventVenue" class="control-label">Venue / Location</label>
+            <input type="text" id="eventVenue" class="control-input" placeholder="e.g. 123 Main St, City" maxlength="80" />
+          </div>
+
+          <div class="control-group">
+            <label for="eventMessage" class="control-label">Custom Message <span class="optional-tag">(optional)</span></label>
+            <textarea id="eventMessage" class="control-input control-textarea" placeholder="Write a personal message or let AI suggest one..." maxlength="200" rows="3"></textarea>
+          </div>
+
+          <button class="btn btn-ai-suggest" id="aiSuggestBtn" type="button">
+            <i class="fa-solid fa-robot"></i> Suggest Message
+          </button>
+
+          <button class="btn btn-primary btn-download" id="downloadBtn" type="button">
+            <i class="fa-solid fa-download"></i> Download Card
+          </button>
+          <div class="share-buttons">
+            <button class="btn btn-share btn-whatsapp" id="whatsappBtn" type="button">
+              <i class="fa-brands fa-whatsapp"></i> Share on WhatsApp
+            </button>
+            <button class="btn btn-share btn-email" id="emailBtn" type="button">
+              <i class="fa-solid fa-envelope"></i> Send via Email
+            </button>
+          </div>
+        </aside>
+
+        <!-- Canvas Preview Area -->
+        <div class="canvas-wrapper" aria-label="Live card preview">
+          <div class="canvas-container" id="canvasContainer">
+            <canvas id="cardCanvas" width="800" height="600"></canvas>
+          </div>
+          <p class="canvas-hint"><i class="fa-solid fa-info-circle"></i> The preview updates in real-time as you type.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CUSTOM CARD GENERATOR ===== -->
+    <section class="custom-section" id="custom">
+      <div class="section-header">
+        <h2 class="section-title">Custom Card Designer</h2>
+        <p class="section-desc">Build your invitation from scratch — pick colors, fonts, upload images, and design freely.</p>
+      </div>
+
+      <div class="generator-layout">
+        <!-- Custom Controls -->
+        <aside class="control-panel custom-controls" aria-label="Custom card controls">
+
+          <h3 class="panel-title">Background</h3>
+          <div class="control-group">
+            <label for="customBgColor" class="control-label">Background Color</label>
+            <div class="color-picker-row">
+              <input type="color" id="customBgColor" class="color-picker" value="#6C63FF" />
+              <span class="color-value" id="bgColorValue">#6C63FF</span>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Or Upload Background Image</label>
+            <label for="customBgImage" class="upload-label">
+              <i class="fa-solid fa-cloud-arrow-up"></i> Choose Image
+              <input type="file" id="customBgImage" accept="image/*" hidden />
+            </label>
+            <button class="btn btn-small btn-remove-img" id="removeBgImage" type="button" style="display:none;">
+              <i class="fa-solid fa-xmark"></i> Remove Image
+            </button>
+          </div>
+
+          <h3 class="panel-title">Heading</h3>
+          <div class="control-group">
+            <label for="customHeading" class="control-label">Heading Text</label>
+            <input type="text" id="customHeading" class="control-input" placeholder="You're Invited!" maxlength="50" value="You're Invited!" />
+          </div>
+          <div class="control-group">
+            <label for="customFont" class="control-label">Font Style</label>
+            <select id="customFont" class="control-input control-select">
+              <option value="Playfair Display">Playfair Display</option>
+              <option value="Dancing Script">Dancing Script</option>
+              <option value="Great Vibes">Great Vibes</option>
+              <option value="Montserrat">Montserrat</option>
+              <option value="Poppins">Poppins</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label for="customFontColor" class="control-label">Font Color</label>
+            <div class="color-picker-row">
+              <input type="color" id="customFontColor" class="color-picker" value="#FFFFFF" />
+              <span class="color-value" id="fontColorValue">#FFFFFF</span>
+            </div>
+          </div>
+          <div class="control-group">
+            <label for="customFontSize" class="control-label">Font Size: <span id="fontSizeVal">42</span>px</label>
+            <input type="range" id="customFontSize" class="control-range" min="18" max="80" value="42" />
+          </div>
+
+          <h3 class="panel-title">Event Details</h3>
+          <div class="control-group">
+            <label for="customDate" class="control-label">Date &amp; Time</label>
+            <input type="datetime-local" id="customDate" class="control-input" />
+          </div>
+          <div class="control-group">
+            <label for="customVenue" class="control-label">Venue / Location</label>
+            <input type="text" id="customVenue" class="control-input" placeholder="Enter venue..." maxlength="80" />
+          </div>
+
+          <h3 class="panel-title">Description</h3>
+          <div class="control-group">
+            <label for="customDesc" class="control-label">Description / Message</label>
+            <textarea id="customDesc" class="control-input control-textarea" placeholder="Add your invitation message..." rows="4" maxlength="300"></textarea>
+          </div>
+          <div class="control-group">
+            <label for="customDescColor" class="control-label">Description Color</label>
+            <div class="color-picker-row">
+              <input type="color" id="customDescColor" class="color-picker" value="#E0E0E0" />
+              <span class="color-value" id="descColorValue">#E0E0E0</span>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-download" id="customDownloadBtn" type="button">
+            <i class="fa-solid fa-download"></i> Download Custom Card
+          </button>
+          <div class="share-buttons">
+            <button class="btn btn-share btn-whatsapp" id="customWhatsappBtn" type="button">
+              <i class="fa-brands fa-whatsapp"></i> Share on WhatsApp
+            </button>
+            <button class="btn btn-share btn-email" id="customEmailBtn" type="button">
+              <i class="fa-solid fa-envelope"></i> Send via Email
+            </button>
+          </div>
+        </aside>
+
+        <!-- Custom Canvas Preview -->
+        <div class="canvas-wrapper" aria-label="Custom card preview">
+          <div class="canvas-container" id="customCanvasContainer">
+            <canvas id="customCanvas" width="800" height="600"></canvas>
+          </div>
+          <p class="canvas-hint"><i class="fa-solid fa-info-circle"></i> Design your card from scratch using the controls on the left.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SEO BLOG SECTION ===== -->
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a href="#" class="logo" aria-label="Cardlyai Home">
+          <img src="assets/logo.png" alt="Cardlyai Logo" class="logo-img"  />
+          <span class="logo-text">Card<span class="logo-accent">lyai</span></span>
+        </a>
+        <p class="footer-tagline">Create beautiful invitation cards for every occasion — free, fast, and endlessly customizable.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#generator">Template Generator</a></li>
+          <li><a href="#custom">Custom Card</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Categories</h4>
+        <ul>
+          <li><a href="#generator">Birthday Cards</a></li>
+          <li><a href="#generator">Wedding Cards</a></li>
+          <li><a href="#generator">Party Invitations</a></li>
+          <li><a href="#generator">Festival Cards</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Cardlyai. All rights reserved. Designed with <i class="fa-solid fa-heart" style="color: var(--accent);"></i></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
