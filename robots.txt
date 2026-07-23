@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemap Location
-Sitemap: https://cardlyai.netlify.app/sitemap.xml
+Sitemap: https://sendinvite-ai.netlify.app/sitemap.xml

@@ -1,5 +1,5 @@
 /* ============================================
-   Cardlyai - script.js (Premium Edition)
+   SendInvite - script.js (Premium Edition)
    ============================================ */
 (function () {
   'use strict';
@@ -204,6 +204,25 @@
     ctx.fillStyle = colors.rim;
     ctx.beginPath();
     ctx.ellipse(0, 0, 12, 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawLocationPin(ctx, cx, cy, size, color, alpha) {
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(cx, cy - size * 0.35, size * 0.45, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(cx - size * 0.45, cy - size * 0.15);
+    ctx.lineTo(cx, cy + size * 0.55);
+    ctx.lineTo(cx + size * 0.45, cy - size * 0.15);
+    ctx.fill();
+    ctx.fillStyle = ctx.canvas.backgroundColor || '#1a1c29';
+    ctx.beginPath();
+    ctx.arc(cx, cy - size * 0.35, size * 0.18, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
   }
@@ -769,7 +788,7 @@
      TEMPLATE CARD RENDERING - Premium
      ========================================== */
   var cardCanvas = document.getElementById('cardCanvas');
-  var cardCtx = cardCanvas.getContext('2d');
+  var cardCtx = cardCanvas ? cardCanvas.getContext('2d') : null;
 
   function renderTemplateCard() {
     var W = cardCanvas.width;
@@ -861,6 +880,11 @@
       cardCtx.font = venueSize + 'px "Montserrat", sans-serif';
       cardCtx.fillStyle = tc;
       cardCtx.globalAlpha = 0.75;
+      var venueTextW = cardCtx.measureText(state.eventVenue).width;
+      var pinSize = venueSize * 0.7;
+      var pinX = W / 2 - venueTextW / 2 - pinSize - 6;
+      var pinY = curY + venueSize * 0.5;
+      drawLocationPin(cardCtx, pinX, pinY, pinSize, tc, 0.75);
       wrapText(cardCtx, state.eventVenue, W / 2, curY, contentW * 0.85, venueSize * 1.4);
       cardCtx.globalAlpha = 1;
       curY += venueSize * 1.4 + 6;
@@ -881,7 +905,7 @@
     cardCtx.font = '11px "Montserrat", sans-serif';
     cardCtx.fillStyle = tc;
     cardCtx.globalAlpha = 0.25;
-    cardCtx.fillText('Made with Cardlyai', W / 2, H - 20);
+    cardCtx.fillText('Made with SendInvite', W / 2, H - 20);
     cardCtx.globalAlpha = 1;
     cardCtx.textAlign = 'left';
   }
@@ -890,7 +914,7 @@
      CUSTOM CARD RENDERING - Premium
      ========================================== */
   var customCanvas = document.getElementById('customCanvas');
-  var customCtx = customCanvas.getContext('2d');
+  var customCtx = customCanvas ? customCanvas.getContext('2d') : null;
 
   function renderCustomCard() {
     var W = customCanvas.width;
@@ -971,6 +995,11 @@
       customCtx.font = '15px "Montserrat", sans-serif';
       customCtx.fillStyle = tc;
       customCtx.globalAlpha = 0.8;
+      var custVenueTextW = customCtx.measureText(customState.venue).width;
+      var custPinSize = 11;
+      var custPinX = W / 2 - custVenueTextW / 2 - custPinSize - 6;
+      var custPinY = curY + 15 * 0.5;
+      drawLocationPin(customCtx, custPinX, custPinY, custPinSize, tc, 0.8);
       wrapText(customCtx, customState.venue, W / 2, curY, contentW * 0.8, 22);
       customCtx.globalAlpha = 1;
       curY += 36;
@@ -989,7 +1018,7 @@
     customCtx.font = '11px "Montserrat", sans-serif';
     customCtx.fillStyle = tc;
     customCtx.globalAlpha = 0.25;
-    customCtx.fillText('Made with Cardlyai', W / 2, H - 20);
+    customCtx.fillText('Made with SendInvite', W / 2, H - 20);
     customCtx.globalAlpha = 1;
     customCtx.textAlign = 'left';
   }
@@ -1147,7 +1176,7 @@
       if (state.eventDate) parts.push('Date: ' + formatDate(state.eventDate) + '.');
       if (state.eventVenue) parts.push('Venue: ' + state.eventVenue + '.');
       if (state.eventMessage) parts.push('"' + state.eventMessage + '"');
-      parts.push('Created with Cardlyai');
+      parts.push('Created with SendInvite');
       return parts.join(' ');
     }
 
@@ -1155,7 +1184,7 @@
     if (whatsappBtn) {
       whatsappBtn.addEventListener('click', function () {
         var text = buildShareText();
-        var fileName = (state.eventName || 'cardlyai-card').replace(/[^a-zA-Z0-9-_ ]/g, '').replace(/\s+/g, '-').toLowerCase() + '.png';
+        var fileName = (state.eventName || 'sendinvite-card').replace(/[^a-zA-Z0-9-_ ]/g, '').replace(/\s+/g, '-').toLowerCase() + '.png';
 
         if (navigator.share && navigator.canShare) {
           canvasToFile(cardCanvas, fileName).then(function (file) {
@@ -1185,7 +1214,7 @@
       emailBtn.addEventListener('click', function () {
         var subject = 'Invitation: ' + (state.eventName || 'You\'re Invited');
         var body = buildShareText();
-        var fileName = (state.eventName || 'cardlyai-card').replace(/[^a-zA-Z0-9-_ ]/g, '').replace(/\s+/g, '-').toLowerCase() + '.png';
+        var fileName = (state.eventName || 'sendinvite-card').replace(/[^a-zA-Z0-9-_ ]/g, '').replace(/\s+/g, '-').toLowerCase() + '.png';
         downloadCanvas(cardCanvas, fileName);
         showToast('Card downloaded! Please attach it to your email.');
         setTimeout(function () {
@@ -1242,14 +1271,14 @@
         if (customState.date) parts.push('Date: ' + customState.date + '.');
         if (customState.venue) parts.push('Venue: ' + customState.venue + '.');
         if (customState.desc) parts.push('"' + customState.desc + '"');
-        parts.push('Created with Cardlyai');
+        parts.push('Created with SendInvite');
         return parts.join(' ');
       }
       var customWhatsappBtn = document.getElementById('customWhatsappBtn');
       if (customWhatsappBtn) {
         customWhatsappBtn.addEventListener('click', function () {
           var text = buildCustomShareText();
-          var fileName = (customState.heading || 'cardlyai-custom').replace(/[^a-zA-Z0-9-_ ]/g, '').replace(/\s+/g, '-').toLowerCase() + '.png';
+          var fileName = (customState.heading || 'sendinvite-custom').replace(/[^a-zA-Z0-9-_ ]/g, '').replace(/\s+/g, '-').toLowerCase() + '.png';
 
           if (navigator.share && navigator.canShare) {
             canvasToFile(customCanvas, fileName).then(function (file) {
@@ -1278,7 +1307,7 @@
         customEmailBtn.addEventListener('click', function () {
           var subject = 'Invitation: ' + (customState.heading || 'You\'re Invited');
           var body = buildCustomShareText();
-          var fileName = (customState.heading || 'cardlyai-custom').replace(/[^a-zA-Z0-9-_ ]/g, '').replace(/\s+/g, '-').toLowerCase() + '.png';
+          var fileName = (customState.heading || 'sendinvite-custom').replace(/[^a-zA-Z0-9-_ ]/g, '').replace(/\s+/g, '-').toLowerCase() + '.png';
           downloadCanvas(customCanvas, fileName);
           showToast('Card downloaded! Please attach it to your email.');
           setTimeout(function () {
