@@ -198,6 +198,120 @@ button, input, select, textarea {
 }
 
 /* ============================================
+   LANGUAGE SELECTOR
+   ============================================ */
+.lang-selector-wrapper {
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  z-index: 1001;
+}
+
+.lang-selector {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xs);
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  outline: none;
+  transition: var(--transition);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23A7A9BE' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 26px;
+}
+
+.lang-selector:hover {
+  border-color: var(--primary-light);
+  background-color: var(--surface-hover);
+}
+
+.lang-selector:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.25);
+}
+
+.lang-selector option {
+  background: var(--bg-secondary);
+  color: var(--text);
+  padding: 8px 12px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+}
+
+/* ============================================
+   RTL SUPPORT
+   ============================================ */
+[dir="rtl"] .nav-links {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .hero-title,
+[dir="rtl"] .hero-subtitle,
+[dir="rtl"] .section-title,
+[dir="rtl"] .section-desc {
+  text-align: right;
+}
+
+[dir="rtl"] .stat-card {
+  text-align: right;
+}
+
+[dir="rtl"] .panel-title {
+  text-align: right;
+}
+
+[dir="rtl"] .control-label {
+  text-align: right;
+}
+
+[dir="rtl"] .footer-content {
+  direction: rtl;
+}
+
+[dir="rtl"] .footer-links {
+  text-align: right;
+}
+
+[dir="rtl"] .footer-tagline {
+  text-align: right;
+}
+
+[dir="rtl"] .footer-bottom p {
+  text-align: center;
+}
+
+[dir="rtl"] .category-tabs {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .template-grid {
+  direction: rtl;
+}
+
+[dir="rtl"] .color-picker-row {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .share-buttons {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .mobile-nav-overlay.open {
+  direction: rtl;
+}
+
+[dir="rtl"] .mobile-nav-overlay .mobile-nav-links {
+  text-align: right;
+}
+
+/* ============================================
    HERO SECTION
    ============================================ */
 .hero {
@@ -1037,6 +1151,24 @@ button, input, select, textarea {
     padding: 14px 16px;
     font-size: 1rem;
     border-radius: var(--radius-xs);
+  }
+
+  .lang-selector-wrapper {
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background: var(--bg-secondary);
+    padding: 10px 24px;
+    border-bottom: 1px solid var(--border);
+    z-index: 998;
+  }
+
+  .lang-selector {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    padding-right: 32px;
   }
 
   .hero {
