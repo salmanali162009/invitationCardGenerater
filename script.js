@@ -150,6 +150,68 @@
     ctx.restore();
   }
 
+  /* --- Divider: Dots --- */
+  function drawDotsDivider(ctx, cx, y, halfW, color, alpha) {
+    ctx.save();
+    ctx.fillStyle = color;
+    ctx.globalAlpha = alpha || 0.4;
+    ctx.beginPath(); ctx.moveTo(cx - halfW, y); ctx.lineTo(cx - 6, y); ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx + 6, y); ctx.lineTo(cx + halfW, y); ctx.stroke();
+    for (var d = -2; d <= 2; d++) {
+      ctx.beginPath(); ctx.arc(cx + d * 6, y + (d % 2 === 0 ? 0 : -3), 2, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  /* --- Divider: Stars --- */
+  function drawStarsDivider(ctx, cx, y, halfW, color, alpha) {
+    ctx.save();
+    ctx.fillStyle = color; ctx.strokeStyle = color;
+    ctx.globalAlpha = alpha || 0.4;
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(cx - halfW, y); ctx.lineTo(cx - 14, y); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx + 14, y); ctx.lineTo(cx + halfW, y); ctx.stroke();
+    ctx.save(); ctx.translate(cx - 8, y); ctx.rotate(Math.PI / 4); ctx.fillRect(-2.5, -2.5, 5, 5); ctx.restore();
+    ctx.save(); ctx.translate(cx, y); drawStar(ctx, cx - cx + 0, y - y, 2, 5, 5); ctx.restore();
+    ctx.save(); ctx.translate(cx + 8, y); ctx.rotate(Math.PI / 4); ctx.fillRect(-2.5, -2.5, 5, 5); ctx.restore();
+    ctx.restore();
+  }
+
+  /* --- Divider: Hearts --- */
+  function drawHeartsDivider(ctx, cx, y, halfW, color, alpha) {
+    ctx.save();
+    ctx.fillStyle = color; ctx.strokeStyle = color;
+    ctx.globalAlpha = alpha || 0.4;
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(cx - halfW, y); ctx.lineTo(cx - 14, y); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx + 14, y); ctx.lineTo(cx + halfW, y); ctx.stroke();
+    drawHeart(ctx, cx, y - 1, 6, color, alpha || 0.4);
+    ctx.restore();
+  }
+
+  /* --- Divider: Wave --- */
+  function drawWaveDivider(ctx, cx, y, halfW, color, alpha) {
+    ctx.save();
+    ctx.strokeStyle = color; ctx.lineWidth = 1.2;
+    ctx.globalAlpha = alpha || 0.4;
+    ctx.beginPath();
+    for (var i = -halfW; i <= halfW; i += 2) {
+      var py = y + Math.sin((i / halfW) * Math.PI * 3) * 5;
+      if (i === -halfW) ctx.moveTo(cx + i, py); else ctx.lineTo(cx + i, py);
+    }
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  /* --- Divider: Line (minimal) --- */
+  function drawLineDivider(ctx, cx, y, halfW, color, alpha) {
+    ctx.save();
+    ctx.strokeStyle = color; ctx.lineWidth = 1;
+    ctx.globalAlpha = alpha || 0.3;
+    ctx.beginPath(); ctx.moveTo(cx - halfW, y); ctx.lineTo(cx + halfW, y); ctx.stroke();
+    ctx.restore();
+  }
+
   function drawFlourishDivider(ctx, cx, y, halfW, color, alpha) {
     ctx.save();
     ctx.strokeStyle = color;
@@ -334,7 +396,7 @@
     ctx.fillRect(0, 0, w, h);
   }
 
-  /* Load all 30 template background images */
+  /* Load all 60 template background images */
   /* Birthday */
   loadBgImage('birthday_0', 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1200&q=80');
   loadBgImage('birthday_1', 'https://images.unsplash.com/photo-1513151233558-d860c5398176?w=1200&q=80');
@@ -370,6 +432,41 @@
   loadBgImage('festival_3', 'https://images.unsplash.com/photo-1576485290814-1c72aa4bbb8e?w=1200&q=80');
   loadBgImage('festival_4', 'https://images.unsplash.com/photo-1549317661-bd32c8ce0afa?w=1200&q=80');
   loadBgImage('festival_5', 'https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=1200&q=80');
+  /* Baby Shower */
+  loadBgImage('babyshower_0', 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=1200&q=80');
+  loadBgImage('babyshower_1', 'https://images.unsplash.com/photo-1544126592-807ade215a0b?w=1200&q=80');
+  loadBgImage('babyshower_2', 'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=1200&q=80');
+  loadBgImage('babyshower_3', 'https://images.unsplash.com/photo-1522771930-78957f8b3f3b?w=1200&q=80');
+  loadBgImage('babyshower_4', 'https://images.unsplash.com/photo-1504439468489-c8920d796a29?w=1200&q=80');
+  loadBgImage('babyshower_5', 'https://images.unsplash.com/photo-1590691566903-692bf5ca7493?w=1200&q=80');
+  /* Graduation */
+  loadBgImage('graduation_0', 'https://images.unsplash.com/photo-1627556704290-2b1f5853ff78?w=1200&q=80');
+  loadBgImage('graduation_1', 'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?w=1200&q=80');
+  loadBgImage('graduation_2', 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=1200&q=80');
+  loadBgImage('graduation_3', 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&q=80');
+  loadBgImage('graduation_4', 'https://images.unsplash.com/photo-1564585222527-c2777e5bc031?w=1200&q=80');
+  loadBgImage('graduation_5', 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=1200&q=80');
+  /* Anniversary */
+  loadBgImage('anniversary_0', 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=1200&q=80');
+  loadBgImage('anniversary_1', 'https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=1200&q=80');
+  loadBgImage('anniversary_2', 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=1200&q=80');
+  loadBgImage('anniversary_3', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80');
+  loadBgImage('anniversary_4', 'https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=1200&q=80');
+  loadBgImage('anniversary_5', 'https://images.unsplash.com/photo-1529636798458-92182e662485?w=1200&q=80');
+  /* Business */
+  loadBgImage('business_0', 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80');
+  loadBgImage('business_1', 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1200&q=80');
+  loadBgImage('business_2', 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1200&q=80');
+  loadBgImage('business_3', 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=1200&q=80');
+  loadBgImage('business_4', 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80');
+  loadBgImage('business_5', 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&q=80');
+  /* Housewarming */
+  loadBgImage('housewarming_0', 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80');
+  loadBgImage('housewarming_1', 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80');
+  loadBgImage('housewarming_2', 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=80');
+  loadBgImage('housewarming_3', 'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=1200&q=80');
+  loadBgImage('housewarming_4', 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&q=80');
+  loadBgImage('housewarming_5', 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200&q=80');
 
   /* ==========================================
      PREMIUM TEMPLATES (30 total)
@@ -378,13 +475,13 @@
   var TEMPLATES = {
 
     birthday: [
-      { name: 'Royal Confetti', draw: function (ctx, w, h) {
+      { name: 'Royal Confetti', design: { headingFont: '"Playfair Display", serif', bodyFont: '"Montserrat", sans-serif', messageFont: 'italic "Poppins", sans-serif', headingWeight: 'bold', divider: 'flourish', shadowColor: 'rgba(0,0,0,0.35)', shadowBlur: 8, panelRadius: 16, panelTint: 0.3, textTransform: 'none', headingMax: 52, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['birthday_0'], w, h, 'rgba(76,29,149,0.35)');
         drawOrnateFrame(ctx, w, h, 22, 30, '#d4a853', 0.5);
         drawCornerOrnaments(ctx, w, h, 22, '#d4a853', 0.45);
         ctx.globalAlpha = 1;
       }},
-      { name: 'Midnight Gold', draw: function (ctx, w, h) {
+      { name: 'Midnight Gold', design: { headingFont: '"Cinzel", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: '700', divider: 'dots', shadowColor: 'rgba(212,168,83,0.5)', shadowBlur: 10, panelRadius: 12, panelTint: 0.25, textTransform: 'uppercase', headingMax: 48, bodyAlpha: 0.85 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['birthday_1'], w, h, 'rgba(15,15,45,0.5)');
         var rng = seededRandom(77);
         ctx.fillStyle = '#d4a853';
@@ -397,7 +494,7 @@
         drawCornerOrnaments(ctx, w, h, 20, '#d4a853', 0.4);
         ctx.globalAlpha = 1;
       }},
-      { name: 'Pastel Dreams', draw: function (ctx, w, h) {
+      { name: 'Pastel Dreams', design: { headingFont: '"Dancing Script", cursive', bodyFont: '"Poppins", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: '700', divider: 'line', shadowColor: 'rgba(180,120,160,0.3)', shadowBlur: 6, panelRadius: 20, panelTint: 0.15, textTransform: 'none', headingMax: 56, bodyAlpha: 0.8 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['birthday_2'], w, h, 'rgba(253,242,248,0.25)');
         var rng = seededRandom(123);
         var pastel = ['#f9a8d4','#c4b5fd','#93c5fd','#86efac','#fcd34d','#fdba74'];
@@ -410,7 +507,7 @@
         ctx.strokeStyle = '#fff'; ctx.lineWidth = 1; ctx.globalAlpha = 0.3;
         roundRectStroke(ctx, 24, 24, w - 48, h - 48, 6); ctx.globalAlpha = 1;
       }},
-      { name: 'Neon Burst', draw: function (ctx, w, h) {
+      { name: 'Neon Burst', design: { headingFont: '"Orbitron", sans-serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'wave', shadowColor: 'rgba(131,56,236,0.5)', shadowBlur: 14, panelRadius: 8, panelTint: 0.35, textTransform: 'uppercase', headingMax: 44, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['birthday_3'], w, h, 'rgba(10,10,30,0.55)');
         var neon = ['#ff006e','#00f5d4','#fee440','#8338ec'];
         var rng = seededRandom(301);
@@ -423,7 +520,7 @@
         drawOrnateFrame(ctx, w, h, 18, 26, '#8338ec', 0.3);
         ctx.globalAlpha = 1;
       }},
-      { name: 'Candy Pop', draw: function (ctx, w, h) {
+      { name: 'Candy Pop', design: { headingFont: '"Pacifico", cursive', bodyFont: '"Poppins", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'stars', shadowColor: 'rgba(255,107,107,0.35)', shadowBlur: 8, panelRadius: 24, panelTint: 0.2, textTransform: 'none', headingMax: 50, bodyAlpha: 0.85 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['birthday_4'], w, h, 'rgba(255,182,193,0.3)');
         var rng = seededRandom(405);
         var colors = ['#ff6b6b','#feca57','#48dbfb','#ff9ff3','#54a0ff','#5f27cd'];
@@ -437,7 +534,7 @@
         ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; ctx.globalAlpha = 0.25;
         roundRectStroke(ctx, 20, 20, w - 40, h - 40, 8); ctx.globalAlpha = 1;
       }},
-      { name: 'Champagne Toast', draw: function (ctx, w, h) {
+      { name: 'Champagne Toast', design: { headingFont: '"Great Vibes", cursive', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'flourish', shadowColor: 'rgba(251,191,36,0.4)', shadowBlur: 10, panelRadius: 14, panelTint: 0.28, textTransform: 'none', headingMax: 58, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['birthday_5'], w, h, 'rgba(45,27,78,0.45)');
         var rng = seededRandom(510);
         ctx.fillStyle = '#fbbf24';
@@ -453,14 +550,14 @@
     ],
 
     wedding: [
-      { name: 'Romantic Rose', draw: function (ctx, w, h) {
+      { name: 'Romantic Rose', design: { headingFont: '"Great Vibes", cursive', bodyFont: '"Cormorant Garamond", serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'hearts', shadowColor: 'rgba(194,132,110,0.35)', shadowBlur: 8, panelRadius: 12, panelTint: 0.2, textTransform: 'none', headingMax: 60, bodyAlpha: 0.85 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['wedding_0'], w, h, 'rgba(253,242,248,0.3)');
         drawFlourishDivider(ctx, w / 2, 50, w * 0.15, '#c2846e', 0.3);
         drawOrnateFrame(ctx, w, h, 22, 30, '#c2846e', 0.35);
         drawCornerOrnaments(ctx, w, h, 22, '#c2846e', 0.3);
         ctx.globalAlpha = 1;
       }},
-      { name: 'Classic Gold', draw: function (ctx, w, h) {
+      { name: 'Classic Gold', design: { headingFont: '"Cinzel", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'flourish', shadowColor: 'rgba(201,168,76,0.4)', shadowBlur: 10, panelRadius: 10, panelTint: 0.22, textTransform: 'uppercase', headingMax: 46, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['wedding_1'], w, h, 'rgba(10,10,30,0.45)');
         drawOrnateFrame(ctx, w, h, 20, 28, '#c9a84c', 0.5);
         drawCornerOrnaments(ctx, w, h, 20, '#c9a84c', 0.45);
@@ -469,12 +566,12 @@
         drawHeart(ctx, w / 2, h - 68, 12, '#c9a84c', 0.35);
         ctx.globalAlpha = 1;
       }},
-      { name: 'Soft Floral', draw: function (ctx, w, h) {
+      { name: 'Soft Floral', design: { headingFont: '"Dancing Script", cursive', bodyFont: '"Poppins", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: '700', divider: 'line', shadowColor: 'rgba(184,134,11,0.3)', shadowBlur: 6, panelRadius: 18, panelTint: 0.12, textTransform: 'none', headingMax: 54, bodyAlpha: 0.8 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['wedding_2'], w, h, 'rgba(255,253,247,0.2)');
         ctx.strokeStyle = '#b8860b'; ctx.globalAlpha = 0.25; ctx.lineWidth = 1.5;
         roundRectStroke(ctx, 24, 24, w - 48, h - 48, 5); ctx.globalAlpha = 1;
       }},
-      { name: 'Garden Party', draw: function (ctx, w, h) {
+      { name: 'Garden Party', design: { headingFont: '"Cormorant Garamond", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'flourish', shadowColor: 'rgba(34,197,94,0.3)', shadowBlur: 8, panelRadius: 14, panelTint: 0.2, textTransform: 'none', headingMax: 50, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['wedding_3'], w, h, 'rgba(22,78,40,0.3)');
         var rng = seededRandom(601);
         ctx.fillStyle = '#86efac'; ctx.globalAlpha = 0.08;
@@ -486,7 +583,7 @@
         drawCornerOrnaments(ctx, w, h, 22, '#22c55e', 0.25);
         ctx.globalAlpha = 1;
       }},
-      { name: 'Lace & Pearls', draw: function (ctx, w, h) {
+      { name: 'Lace & Pearls', design: { headingFont: '"Playfair Display", serif', bodyFont: '"Cormorant Garamond", serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'dots', shadowColor: 'rgba(212,168,83,0.3)', shadowBlur: 6, panelRadius: 6, panelTint: 0.15, textTransform: 'none', headingMax: 48, bodyAlpha: 0.85 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['wedding_4'], w, h, 'rgba(255,253,245,0.25)');
         var rng = seededRandom(650);
         ctx.fillStyle = '#fef3c7'; ctx.globalAlpha = 0.12;
@@ -497,7 +594,7 @@
         ctx.strokeStyle = '#d4a853'; ctx.lineWidth = 1.5; ctx.globalAlpha = 0.3;
         roundRectStroke(ctx, 22, 22, w - 44, h - 44, 4); ctx.globalAlpha = 1;
       }},
-      { name: 'Sunset Vow', draw: function (ctx, w, h) {
+      { name: 'Sunset Vow', design: { headingFont: '"Italiana", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'hearts', shadowColor: 'rgba(234,88,12,0.35)', shadowBlur: 8, panelRadius: 12, panelTint: 0.22, textTransform: 'uppercase', headingMax: 50, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['wedding_5'], w, h, 'rgba(180,83,9,0.3)');
         var grad = ctx.createLinearGradient(0, 0, 0, h);
         grad.addColorStop(0, 'rgba(251,191,36,0.12)');
@@ -511,7 +608,7 @@
     ],
 
     party: [
-      { name: 'Electric Neon', draw: function (ctx, w, h) {
+      { name: 'Electric Neon', design: { headingFont: '"Orbitron", sans-serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'wave', shadowColor: 'rgba(0,245,212,0.45)', shadowBlur: 14, panelRadius: 6, panelTint: 0.4, textTransform: 'uppercase', headingMax: 44, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['party_0'], w, h, 'rgba(10,10,20,0.4)');
         var neonColors = ['#ff006e', '#00f5d4', '#fee440', '#8338ec', '#fb5607'];
         var rng = seededRandom(201);
@@ -530,7 +627,7 @@
         roundRectStroke(ctx, 16, 16, w - 32, h - 32, 6);
         ctx.shadowBlur = 0; ctx.globalAlpha = 1;
       }},
-      { name: 'Retro Sunrise', draw: function (ctx, w, h) {
+      { name: 'Retro Sunrise', design: { headingFont: '"Bebas Neue", sans-serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'line', shadowColor: 'rgba(255,107,53,0.35)', shadowBlur: 8, panelRadius: 4, panelTint: 0.3, textTransform: 'uppercase', headingMax: 52, bodyAlpha: 0.85 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['party_1'], w, h, 'rgba(255,107,53,0.2)');
         ctx.save(); ctx.translate(w / 2, h / 2); ctx.globalAlpha = 0.1; ctx.fillStyle = '#fff';
         for (var i = 0; i < 36; i++) {
@@ -542,12 +639,12 @@
         ctx.strokeStyle = '#fff'; ctx.globalAlpha = 0.2; ctx.lineWidth = 2;
         roundRectStroke(ctx, 20, 20, w - 40, h - 40, 4); ctx.globalAlpha = 1;
       }},
-      { name: 'Tropical Night', draw: function (ctx, w, h) {
+      { name: 'Tropical Night', design: { headingFont: '"Pacifico", cursive', bodyFont: '"Poppins", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'dots', shadowColor: 'rgba(212,168,83,0.3)', shadowBlur: 8, panelRadius: 10, panelTint: 0.25, textTransform: 'none', headingMax: 52, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['party_2'], w, h, 'rgba(6,78,59,0.35)');
         drawOrnateFrame(ctx, w, h, 20, 28, '#d4a853', 0.25);
         ctx.globalAlpha = 1;
       }},
-      { name: 'Disco Fever', draw: function (ctx, w, h) {
+      { name: 'Disco Fever', design: { headingFont: '"Orbitron", sans-serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'stars', shadowColor: 'rgba(255,0,110,0.4)', shadowBlur: 12, panelRadius: 6, panelTint: 0.38, textTransform: 'uppercase', headingMax: 42, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['party_3'], w, h, 'rgba(30,10,60,0.5)');
         var rng = seededRandom(701);
         var disco = ['#ff006e','#00f5d4','#fee440','#8338ec','#fb5607','#3a86ff'];
@@ -563,7 +660,7 @@
         roundRectStroke(ctx, 18, 18, w - 36, h - 36, 6);
         ctx.shadowBlur = 0; ctx.globalAlpha = 1;
       }},
-      { name: 'Cocktail Hour', draw: function (ctx, w, h) {
+      { name: 'Cocktail Hour', design: { headingFont: '"Dancing Script", cursive', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: '700', divider: 'hearts', shadowColor: 'rgba(251,191,36,0.35)', shadowBlur: 8, panelRadius: 14, panelTint: 0.25, textTransform: 'none', headingMax: 56, bodyAlpha: 0.85 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['party_4'], w, h, 'rgba(30,20,50,0.4)');
         var rng = seededRandom(750);
         ctx.fillStyle = '#fbbf24'; ctx.globalAlpha = 0.1;
@@ -575,7 +672,7 @@
         drawCornerOrnaments(ctx, w, h, 20, '#fbbf24', 0.25);
         ctx.globalAlpha = 1;
       }},
-      { name: 'Rooftop Bash', draw: function (ctx, w, h) {
+      { name: 'Rooftop Bash', design: { headingFont: '"Bebas Neue", sans-serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'wave', shadowColor: 'rgba(56,189,248,0.4)', shadowBlur: 10, panelRadius: 8, panelTint: 0.3, textTransform: 'uppercase', headingMax: 54, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['party_5'], w, h, 'rgba(15,23,42,0.45)');
         var grad = ctx.createLinearGradient(0, 0, 0, h);
         grad.addColorStop(0, 'rgba(56,189,248,0.08)');
@@ -588,7 +685,7 @@
     ],
 
     formal: [
-      { name: 'Black Tie', draw: function (ctx, w, h) {
+      { name: 'Black Tie', design: { headingFont: '"Cinzel", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'flourish', shadowColor: 'rgba(0,0,0,0.4)', shadowBlur: 8, panelRadius: 10, panelTint: 0.3, textTransform: 'uppercase', headingMax: 46, bodyAlpha: 0.85 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['formal_0'], w, h, 'rgba(17,24,39,0.45)');
         drawOrnateFrame(ctx, w, h, 18, 26, '#9ca3af', 0.4);
         ctx.fillStyle = '#9ca3af'; ctx.globalAlpha = 0.35;
@@ -597,13 +694,13 @@
         });
         ctx.globalAlpha = 1;
       }},
-      { name: 'Ivory Elegance', draw: function (ctx, w, h) {
+      { name: 'Ivory Elegance', design: { headingFont: '"Cormorant Garamond", serif', bodyFont: '"Cormorant Garamond", serif', messageFont: '"Poppins", sans-serif', headingWeight: '600', divider: 'flourish', shadowColor: 'rgba(120,53,15,0.25)', shadowBlur: 6, panelRadius: 8, panelTint: 0.12, textTransform: 'none', headingMax: 50, bodyAlpha: 0.85 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['formal_1'], w, h, 'rgba(255,253,245,0.2)');
         drawOrnateFrame(ctx, w, h, 24, 32, '#78350f', 0.3);
         drawCornerOrnaments(ctx, w, h, 24, '#78350f', 0.3);
         ctx.globalAlpha = 1;
       }},
-      { name: 'Royal Navy', draw: function (ctx, w, h) {
+      { name: 'Royal Navy', design: { headingFont: '"Cinzel", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'diamond', shadowColor: 'rgba(212,168,83,0.4)', shadowBlur: 10, panelRadius: 12, panelTint: 0.28, textTransform: 'uppercase', headingMax: 44, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['formal_2'], w, h, 'rgba(12,31,56,0.4)');
         drawOrnateFrame(ctx, w, h, 20, 28, '#d4a853', 0.35);
         drawCornerOrnaments(ctx, w, h, 20, '#d4a853', 0.3);
@@ -611,7 +708,7 @@
         ctx.translate(w / 2, 40); ctx.rotate(Math.PI / 4); ctx.fillRect(-5, -5, 10, 10); ctx.restore();
         ctx.globalAlpha = 1;
       }},
-      { name: 'Crystal Chandelier', draw: function (ctx, w, h) {
+      { name: 'Crystal Chandelier', design: { headingFont: '"Playfair Display", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'dots', shadowColor: 'rgba(199,210,254,0.35)', shadowBlur: 10, panelRadius: 14, panelTint: 0.25, textTransform: 'none', headingMax: 50, bodyAlpha: 0.85 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['formal_3'], w, h, 'rgba(20,20,40,0.4)');
         var rng = seededRandom(801);
         ctx.fillStyle = '#e0e7ff'; ctx.globalAlpha = 0.08;
@@ -624,7 +721,7 @@
         drawCornerOrnaments(ctx, w, h, 22, '#c7d2fe', 0.3);
         ctx.globalAlpha = 1;
       }},
-      { name: 'Wine & Dine', draw: function (ctx, w, h) {
+      { name: 'Wine & Dine', design: { headingFont: '"Cormorant Garamond", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: '600', divider: 'hearts', shadowColor: 'rgba(220,38,38,0.25)', shadowBlur: 8, panelRadius: 10, panelTint: 0.25, textTransform: 'none', headingMax: 50, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['formal_4'], w, h, 'rgba(80,20,20,0.4)');
         var rng = seededRandom(850);
         ctx.fillStyle = '#fecaca'; ctx.globalAlpha = 0.06;
@@ -635,7 +732,7 @@
         drawOrnateFrame(ctx, w, h, 20, 28, '#fca5a5', 0.3);
         ctx.globalAlpha = 1;
       }},
-      { name: 'Monochrome', draw: function (ctx, w, h) {
+      { name: 'Monochrome', design: { headingFont: '"Cinzel", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Montserrat", sans-serif', headingWeight: 'bold', divider: 'line', shadowColor: 'rgba(0,0,0,0.35)', shadowBlur: 6, panelRadius: 6, panelTint: 0.28, textTransform: 'uppercase', headingMax: 46, bodyAlpha: 0.85 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['formal_5'], w, h, 'rgba(20,20,20,0.45)');
         drawOrnateFrame(ctx, w, h, 20, 28, '#d4d4d8', 0.4);
         drawCornerOrnaments(ctx, w, h, 20, '#d4d4d8', 0.35);
@@ -646,7 +743,7 @@
     ],
 
     festival: [
-      { name: 'Eid Elegance', draw: function (ctx, w, h) {
+      { name: 'Eid Elegance', design: { headingFont: '"Amiri", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'flourish', shadowColor: 'rgba(251,191,36,0.4)', shadowBlur: 10, panelRadius: 12, panelTint: 0.28, textTransform: 'none', headingMax: 50, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['festival_0'], w, h, 'rgba(13,61,56,0.4)');
         drawCrescentMoon(ctx, w / 2, 70, 24, '#fbbf24', BG_IMAGES['festival_0'] ? 'rgba(13,61,56,0.8)' : '#0d3d38');
         ctx.fillStyle = '#fbbf24'; ctx.globalAlpha = 0.8; drawStar(ctx, w / 2 + 34, 60, 3, 7, 5);
@@ -654,7 +751,7 @@
         for (var a = 1; a <= 4; a++) { ctx.beginPath(); ctx.arc(w / 2, h + 50, 40 * a, Math.PI, 0); ctx.stroke(); }
         drawOrnateFrame(ctx, w, h, 18, 26, '#fbbf24', 0.25); ctx.globalAlpha = 1;
       }},
-      { name: 'Diwali', draw: function (ctx, w, h) {
+      { name: 'Diwali', design: { headingFont: '"Cormorant Garamond", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'stars', shadowColor: 'rgba(249,115,22,0.4)', shadowBlur: 10, panelRadius: 10, panelTint: 0.3, textTransform: 'none', headingMax: 50, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['festival_1'], w, h, 'rgba(124,45,18,0.35)');
         var diyas = [w * 0.2, w * 0.5, w * 0.8];
         diyas.forEach(function(dx) {
@@ -662,7 +759,7 @@
         });
         drawOrnateFrame(ctx, w, h, 18, 26, '#fbbf24', 0.2); ctx.globalAlpha = 1;
       }},
-      { name: 'Christmas', draw: function (ctx, w, h) {
+      { name: 'Christmas', design: { headingFont: '"Playfair Display", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'hearts', shadowColor: 'rgba(220,38,38,0.3)', shadowBlur: 8, panelRadius: 12, panelTint: 0.25, textTransform: 'none', headingMax: 50, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['festival_2'], w, h, 'rgba(153,27,27,0.3)');
         var rng = seededRandom(1301);
         ctx.fillStyle = '#fef3c7'; ctx.globalAlpha = 0.12;
@@ -674,7 +771,7 @@
         drawCornerOrnaments(ctx, w, h, 18, '#22c55e', 0.3);
         ctx.globalAlpha = 1;
       }},
-      { name: 'Holi Colors', draw: function (ctx, w, h) {
+      { name: 'Holi Colors', design: { headingFont: '"Pacifico", cursive', bodyFont: '"Poppins", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'wave', shadowColor: 'rgba(139,92,246,0.35)', shadowBlur: 10, panelRadius: 18, panelTint: 0.2, textTransform: 'none', headingMax: 52, bodyAlpha: 0.85 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['festival_3'], w, h, 'rgba(30,10,40,0.35)');
         var rng = seededRandom(1401);
         var holi = ['#f43f5e','#f97316','#eab308','#22c55e','#3b82f6','#8b5cf6','#ec4899'];
@@ -688,7 +785,7 @@
         ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; ctx.globalAlpha = 0.2;
         roundRectStroke(ctx, 20, 20, w - 40, h - 40, 6); ctx.globalAlpha = 1;
       }},
-      { name: 'Lantern Festival', draw: function (ctx, w, h) {
+      { name: 'Lantern Festival', design: { headingFont: '"Italiana", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'dots', shadowColor: 'rgba(251,191,36,0.35)', shadowBlur: 8, panelRadius: 12, panelTint: 0.28, textTransform: 'none', headingMax: 50, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['festival_4'], w, h, 'rgba(15,15,40,0.45)');
         var rng = seededRandom(1450);
         var lanterns = ['#fbbf24','#f97316','#ef4444','#f59e0b'];
@@ -703,7 +800,7 @@
         drawCornerOrnaments(ctx, w, h, 18, '#fbbf24', 0.25);
         ctx.globalAlpha = 1;
       }},
-      { name: 'New Year Glow', draw: function (ctx, w, h) {
+      { name: 'New Year Glow', design: { headingFont: '"Bebas Neue", sans-serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'stars', shadowColor: 'rgba(251,191,36,0.4)', shadowBlur: 12, panelRadius: 8, panelTint: 0.32, textTransform: 'uppercase', headingMax: 56, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['festival_5'], w, h, 'rgba(10,10,30,0.5)');
         var rng = seededRandom(1500);
         ctx.fillStyle = '#fbbf24';
@@ -726,6 +823,252 @@
         }
         ctx.globalAlpha = 1;
         drawOrnateFrame(ctx, w, h, 18, 26, '#fbbf24', 0.3);
+        ctx.globalAlpha = 1;
+      }},
+    ],
+    /* ==========================================
+       BABY SHOWER / GENDER REVEAL
+       ========================================== */
+    babyshower: [
+      { name: 'Pink Dreams', design: { headingFont: '"Sacramento", cursive', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'hearts', shadowColor: 'rgba(236,72,153,0.35)', shadowBlur: 8, panelRadius: 20, panelTint: 0.25, textTransform: 'none', headingMax: 56, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['babyshower_0'], w, h, 'rgba(190,120,160,0.25)');
+        var rng = seededRandom(1601);
+        ctx.fillStyle = '#f9a8d4'; ctx.globalAlpha = 0.15;
+        for (var i = 0; i < 12; i++) { drawHeart(ctx, rng() * w, rng() * h, 6 + rng() * 10, '#f9a8d4', 0.12); }
+        ctx.globalAlpha = 1;
+        drawOrnateFrame(ctx, w, h, 18, 26, '#f9a8d4', 0.3);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Blue Bliss', design: { headingFont: '"Dancing Script", cursive', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'stars', shadowColor: 'rgba(59,130,246,0.35)', shadowBlur: 8, panelRadius: 16, panelTint: 0.28, textTransform: 'none', headingMax: 54, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['babyshower_1'], w, h, 'rgba(100,140,200,0.25)');
+        var rng = seededRandom(1651);
+        ctx.fillStyle = '#93c5fd'; ctx.globalAlpha = 0.12;
+        for (var i = 0; i < 25; i++) { drawStar(ctx, rng() * w, rng() * h, 1, 2 + rng() * 3, 5); }
+        ctx.globalAlpha = 1;
+        drawOrnateFrame(ctx, w, h, 18, 26, '#93c5fd', 0.3);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Stork Special', design: { headingFont: '"Playfair Display", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'flourish', shadowColor: 'rgba(251,191,36,0.3)', shadowBlur: 8, panelRadius: 14, panelTint: 0.3, textTransform: 'none', headingMax: 50, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['babyshower_2'], w, h, 'rgba(180,150,120,0.2)');
+        drawOrnateFrame(ctx, w, h, 18, 26, '#fbbf24', 0.3);
+        drawCornerOrnaments(ctx, w, h, 18, '#ec4899', 0.3);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Pastel Balloons', design: { headingFont: '"Pacifico", cursive', bodyFont: '"Poppins", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'wave', shadowColor: 'rgba(168,85,247,0.3)', shadowBlur: 8, panelRadius: 18, panelTint: 0.22, textTransform: 'none', headingMax: 52, bodyAlpha: 0.88 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['babyshower_3'], w, h, 'rgba(150,120,180,0.2)');
+        var rng = seededRandom(1680);
+        var pastel = ['#f9a8d4','#93c5fd','#86efac','#fde68a','#c4b5fd'];
+        for (var i = 0; i < 15; i++) {
+          ctx.fillStyle = pastel[Math.floor(rng() * pastel.length)];
+          ctx.globalAlpha = 0.08 + rng() * 0.12;
+          ctx.beginPath(); ctx.arc(rng() * w, rng() * h, 6 + rng() * 10, 0, Math.PI * 2); ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Gender Reveal', design: { headingFont: '"Bebas Neue", sans-serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'diamond', shadowColor: 'rgba(236,72,153,0.3)', shadowBlur: 10, panelRadius: 10, panelTint: 0.3, textTransform: 'uppercase', headingMax: 58, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['babyshower_4'], w, h, 'rgba(100,80,130,0.25)');
+        var leftX = w * 0.25, rightX = w * 0.75, cy = h * 0.2;
+        ctx.fillStyle = '#ec4899'; ctx.globalAlpha = 0.25; drawStar(ctx, leftX, cy, 6, 14, 5);
+        ctx.fillStyle = '#3b82f6'; ctx.globalAlpha = 0.25; drawStar(ctx, rightX, cy, 6, 14, 5);
+        ctx.globalAlpha = 1;
+        drawOrnateFrame(ctx, w, h, 18, 26, '#a855f7', 0.25);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Little Prince', design: { headingFont: '"Cormorant Garamond", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'dots', shadowColor: 'rgba(217,119,6,0.3)', shadowBlur: 8, panelRadius: 14, panelTint: 0.28, textTransform: 'none', headingMax: 50, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['babyshower_5'], w, h, 'rgba(140,120,100,0.2)');
+        drawCrescentMoon(ctx, w * 0.8, 65, 18, '#fbbf24', 'rgba(140,120,100,0.5)');
+        drawOrnateFrame(ctx, w, h, 18, 26, '#fbbf24', 0.25);
+        ctx.globalAlpha = 1;
+      }},
+    ],
+    /* ==========================================
+       GRADUATION / FAREWELL
+       ========================================== */
+    graduation: [
+      { name: 'Academic Gold', design: { headingFont: '"Cinzel", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'flourish', shadowColor: 'rgba(217,119,6,0.4)', shadowBlur: 10, panelRadius: 12, panelTint: 0.32, textTransform: 'none', headingMax: 50, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['graduation_0'], w, h, 'rgba(30,30,10,0.4)');
+        drawOrnateFrame(ctx, w, h, 18, 26, '#d97706', 0.35);
+        drawCornerOrnaments(ctx, w, h, 18, '#fbbf24', 0.3);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Campus Vibes', design: { headingFont: '"Montserrat", sans-serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: '700', divider: 'line', shadowColor: 'rgba(37,99,235,0.3)', shadowBlur: 8, panelRadius: 10, panelTint: 0.3, textTransform: 'uppercase', headingMax: 48, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['graduation_1'], w, h, 'rgba(30,58,138,0.3)');
+        var rng = seededRandom(1751);
+        ctx.fillStyle = '#fbbf24'; ctx.globalAlpha = 0.1;
+        for (var i = 0; i < 20; i++) { drawStar(ctx, rng() * w, rng() * h, 1, 2 + rng() * 3, 5); }
+        ctx.globalAlpha = 1;
+        drawOrnateFrame(ctx, w, h, 18, 26, '#fbbf24', 0.25);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Summa Cum Laude', design: { headingFont: '"Playfair Display", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'diamond', shadowColor: 'rgba(251,191,36,0.35)', shadowBlur: 10, panelRadius: 14, panelTint: 0.3, textTransform: 'none', headingMax: 48, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['graduation_2'], w, h, 'rgba(20,40,20,0.3)');
+        drawOrnateFrame(ctx, w, h, 18, 26, '#fbbf24', 0.3);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Farewell Class', design: { headingFont: '"Great Vibes", cursive', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'hearts', shadowColor: 'rgba(244,63,94,0.3)', shadowBlur: 8, panelRadius: 16, panelTint: 0.25, textTransform: 'none', headingMax: 56, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['graduation_3'], w, h, 'rgba(88,20,30,0.3)');
+        var rng = seededRandom(1780);
+        ctx.fillStyle = '#fda4af'; ctx.globalAlpha = 0.15;
+        for (var i = 0; i < 10; i++) { drawHeart(ctx, rng() * w, rng() * h, 6 + rng() * 8, '#fda4af', 0.12); }
+        ctx.globalAlpha = 1;
+        drawOrnateFrame(ctx, w, h, 18, 26, '#fda4af', 0.3);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Honor Roll', design: { headingFont: '"Orbitron", sans-serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'stars', shadowColor: 'rgba(251,191,36,0.4)', shadowBlur: 12, panelRadius: 8, panelTint: 0.35, textTransform: 'uppercase', headingMax: 46, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['graduation_4'], w, h, 'rgba(10,10,30,0.45)');
+        var rng = seededRandom(1810);
+        ctx.fillStyle = '#fbbf24';
+        for (var i = 0; i < 30; i++) {
+          ctx.globalAlpha = 0.06 + rng() * 0.1;
+          drawStar(ctx, rng() * w, rng() * h, 1, 2 + rng() * 4, 5);
+        }
+        ctx.globalAlpha = 1;
+        drawOrnateFrame(ctx, w, h, 18, 26, '#fbbf24', 0.3);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'New Beginnings', design: { headingFont: '"Italiana", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'wave', shadowColor: 'rgba(59,130,246,0.3)', shadowBlur: 8, panelRadius: 14, panelTint: 0.28, textTransform: 'none', headingMax: 50, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['graduation_5'], w, h, 'rgba(20,30,60,0.35)');
+        drawOrnateFrame(ctx, w, h, 18, 26, '#60a5fa', 0.25);
+        drawCornerOrnaments(ctx, w, h, 18, '#fbbf24', 0.25);
+        ctx.globalAlpha = 1;
+      }},
+    ],
+    /* ==========================================
+       ANNIVERSARY / ENGAGEMENT
+       ========================================== */
+    anniversary: [
+      { name: 'Eternal Rose', design: { headingFont: '"Great Vibes", cursive', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'hearts', shadowColor: 'rgba(220,38,38,0.35)', shadowBlur: 10, panelRadius: 18, panelTint: 0.25, textTransform: 'none', headingMax: 58, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['anniversary_0'], w, h, 'rgba(127,29,29,0.3)');
+        var rng = seededRandom(1901);
+        ctx.fillStyle = '#fca5a5'; ctx.globalAlpha = 0.15;
+        for (var i = 0; i < 12; i++) { drawHeart(ctx, rng() * w, rng() * h, 6 + rng() * 10, '#fca5a5', 0.12); }
+        ctx.globalAlpha = 1;
+        drawOrnateFrame(ctx, w, h, 18, 26, '#fca5a5', 0.3);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Golden Years', design: { headingFont: '"Playfair Display", serif', bodyFont: '"Montserrat", sans-serif', messageFont: 'italic "Poppins", sans-serif', headingWeight: 'bold', divider: 'flourish', shadowColor: 'rgba(217,119,6,0.4)', shadowBlur: 10, panelRadius: 12, panelTint: 0.3, textTransform: 'none', headingMax: 50, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['anniversary_1'], w, h, 'rgba(60,40,10,0.3)');
+        drawOrnateFrame(ctx, w, h, 18, 26, '#fbbf24', 0.35);
+        drawCornerOrnaments(ctx, w, h, 18, '#fbbf24', 0.3);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Diamond Bond', design: { headingFont: '"Cinzel", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'diamond', shadowColor: 'rgba(147,197,253,0.3)', shadowBlur: 8, panelRadius: 10, panelTint: 0.32, textTransform: 'none', headingMax: 48, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['anniversary_2'], w, h, 'rgba(20,30,60,0.35)');
+        drawOrnateFrame(ctx, w, h, 18, 26, '#93c5fd', 0.25);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Enchanted', design: { headingFont: '"Sacramento", cursive', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'stars', shadowColor: 'rgba(168,85,247,0.3)', shadowBlur: 8, panelRadius: 20, panelTint: 0.22, textTransform: 'none', headingMax: 58, bodyAlpha: 0.88 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['anniversary_3'], w, h, 'rgba(40,10,60,0.3)');
+        var rng = seededRandom(1930);
+        ctx.fillStyle = '#c4b5fd'; ctx.globalAlpha = 0.1;
+        for (var i = 0; i < 20; i++) { drawStar(ctx, rng() * w, rng() * h, 1, 2 + rng() * 3, 5); }
+        ctx.globalAlpha = 1;
+        drawOrnateFrame(ctx, w, h, 18, 26, '#c4b5fd', 0.25);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Love Story', design: { headingFont: '"Dancing Script", cursive', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'hearts', shadowColor: 'rgba(236,72,153,0.35)', shadowBlur: 10, panelRadius: 16, panelTint: 0.25, textTransform: 'none', headingMax: 54, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['anniversary_4'], w, h, 'rgba(80,20,40,0.3)');
+        var rng = seededRandom(1950);
+        ctx.fillStyle = '#f9a8d4'; ctx.globalAlpha = 0.15;
+        for (var i = 0; i < 10; i++) { drawHeart(ctx, rng() * w, rng() * h, 6 + rng() * 8, '#f9a8d4', 0.12); }
+        ctx.globalAlpha = 1;
+        drawOrnateFrame(ctx, w, h, 18, 26, '#f9a8d4', 0.3);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Silver Celebration', design: { headingFont: '"Cormorant Garamond", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'line', shadowColor: 'rgba(209,213,219,0.3)', shadowBlur: 8, panelRadius: 12, panelTint: 0.3, textTransform: 'none', headingMax: 50, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['anniversary_5'], w, h, 'rgba(30,30,40,0.35)');
+        var rng = seededRandom(1960);
+        ctx.fillStyle = '#e5e7eb'; ctx.globalAlpha = 0.08;
+        for (var i = 0; i < 25; i++) { drawStar(ctx, rng() * w, rng() * h, 1, 2 + rng() * 3, 5); }
+        ctx.globalAlpha = 1;
+        drawOrnateFrame(ctx, w, h, 18, 26, '#d1d5db', 0.25);
+        ctx.globalAlpha = 1;
+      }},
+    ],
+    /* ==========================================
+       BUSINESS / CONFERENCE
+       ========================================== */
+    business: [
+      { name: 'Corporate Elite', design: { headingFont: '"Bebas Neue", sans-serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'line', shadowColor: 'rgba(37,99,235,0.3)', shadowBlur: 8, panelRadius: 6, panelTint: 0.35, textTransform: 'uppercase', headingMax: 54, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['business_0'], w, h, 'rgba(15,23,42,0.4)');
+        drawOrnateFrame(ctx, w, h, 18, 26, '#60a5fa', 0.2);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Summit Stage', design: { headingFont: '"Montserrat", sans-serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: '700', divider: 'diamond', shadowColor: 'rgba(251,191,36,0.3)', shadowBlur: 8, panelRadius: 8, panelTint: 0.32, textTransform: 'uppercase', headingMax: 46, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['business_1'], w, h, 'rgba(20,30,50,0.35)');
+        drawOrnateFrame(ctx, w, h, 18, 26, '#fbbf24', 0.25);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Network Night', design: { headingFont: '"Orbitron", sans-serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'dots', shadowColor: 'rgba(34,197,94,0.3)', shadowBlur: 8, panelRadius: 10, panelTint: 0.3, textTransform: 'uppercase', headingMax: 44, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['business_2'], w, h, 'rgba(10,30,20,0.35)');
+        var rng = seededRandom(2050);
+        ctx.fillStyle = '#22c55e'; ctx.globalAlpha = 0.08;
+        for (var i = 0; i < 15; i++) {
+          ctx.beginPath(); ctx.arc(rng() * w, rng() * h, 2 + rng() * 3, 0, Math.PI * 2); ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+        drawOrnateFrame(ctx, w, h, 18, 26, '#22c55e', 0.2);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Keynote', design: { headingFont: '"Playfair Display", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'flourish', shadowColor: 'rgba(217,119,6,0.3)', shadowBlur: 8, panelRadius: 12, panelTint: 0.3, textTransform: 'none', headingMax: 50, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['business_3'], w, h, 'rgba(20,30,50,0.3)');
+        drawOrnateFrame(ctx, w, h, 18, 26, '#fbbf24', 0.25);
+        drawCornerOrnaments(ctx, w, h, 18, '#fbbf24', 0.2);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Startup Spark', design: { headingFont: '"Italiana", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'wave', shadowColor: 'rgba(168,85,247,0.3)', shadowBlur: 8, panelRadius: 14, panelTint: 0.28, textTransform: 'none', headingMax: 50, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['business_4'], w, h, 'rgba(30,15,50,0.35)');
+        drawOrnateFrame(ctx, w, h, 18, 26, '#a855f7', 0.2);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Boardroom', design: { headingFont: '"Cinzel", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'flourish', shadowColor: 'rgba(148,163,184,0.3)', shadowBlur: 8, panelRadius: 8, panelTint: 0.35, textTransform: 'none', headingMax: 48, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['business_5'], w, h, 'rgba(15,23,42,0.4)');
+        drawOrnateFrame(ctx, w, h, 18, 26, '#94a3b8', 0.2);
+        ctx.globalAlpha = 1;
+      }},
+    ],
+    /* ==========================================
+       HOUSEWARMING / INAUGURATION
+       ========================================== */
+    housewarming: [
+      { name: 'Welcome Home', design: { headingFont: '"Playfair Display", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'flourish', shadowColor: 'rgba(34,197,94,0.3)', shadowBlur: 8, panelRadius: 16, panelTint: 0.28, textTransform: 'none', headingMax: 52, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['housewarming_0'], w, h, 'rgba(20,40,20,0.3)');
+        drawOrnateFrame(ctx, w, h, 18, 26, '#22c55e', 0.3);
+        drawCornerOrnaments(ctx, w, h, 18, '#86efac', 0.25);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'New Keys', design: { headingFont: '"Dancing Script", cursive', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'hearts', shadowColor: 'rgba(217,119,6,0.3)', shadowBlur: 8, panelRadius: 18, panelTint: 0.25, textTransform: 'none', headingMax: 54, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['housewarming_1'], w, h, 'rgba(60,40,10,0.3)');
+        var rng = seededRandom(2150);
+        ctx.fillStyle = '#fde68a'; ctx.globalAlpha = 0.12;
+        for (var i = 0; i < 10; i++) { drawHeart(ctx, rng() * w, rng() * h, 6 + rng() * 8, '#fde68a', 0.1); }
+        ctx.globalAlpha = 1;
+        drawOrnateFrame(ctx, w, h, 18, 26, '#fbbf24', 0.3);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Garden Party', design: { headingFont: '"Great Vibes", cursive', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'stars', shadowColor: 'rgba(34,197,94,0.35)', shadowBlur: 10, panelRadius: 20, panelTint: 0.22, textTransform: 'none', headingMax: 58, bodyAlpha: 0.88 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['housewarming_2'], w, h, 'rgba(20,40,20,0.3)');
+        var rng = seededRandom(2180);
+        ctx.fillStyle = '#86efac'; ctx.globalAlpha = 0.1;
+        for (var i = 0; i < 20; i++) { drawStar(ctx, rng() * w, rng() * h, 1, 2 + rng() * 3, 5); }
+        ctx.globalAlpha = 1;
+        drawOrnateFrame(ctx, w, h, 18, 26, '#86efac', 0.25);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Grand Opening', design: { headingFont: '"Cinzel", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'diamond', shadowColor: 'rgba(217,119,6,0.35)', shadowBlur: 10, panelRadius: 10, panelTint: 0.32, textTransform: 'none', headingMax: 48, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['housewarming_3'], w, h, 'rgba(40,30,10,0.35)');
+        drawOrnateFrame(ctx, w, h, 18, 26, '#fbbf24', 0.3);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'Cozy Nest', design: { headingFont: '"Pacifico", cursive', bodyFont: '"Poppins", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'normal', divider: 'wave', shadowColor: 'rgba(234,179,8,0.3)', shadowBlur: 8, panelRadius: 18, panelTint: 0.22, textTransform: 'none', headingMax: 52, bodyAlpha: 0.88 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['housewarming_4'], w, h, 'rgba(40,30,15,0.3)');
+        drawOrnateFrame(ctx, w, h, 18, 26, '#fde68a', 0.25);
+        ctx.globalAlpha = 1;
+      }},
+      { name: 'House Blessing', design: { headingFont: '"Cormorant Garamond", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'flourish', shadowColor: 'rgba(134,239,172,0.3)', shadowBlur: 8, panelRadius: 14, panelTint: 0.28, textTransform: 'none', headingMax: 50, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+        drawImageBg(ctx, BG_IMAGES['housewarming_5'], w, h, 'rgba(20,40,25,0.3)');
+        drawOrnateFrame(ctx, w, h, 18, 26, '#22c55e', 0.25);
+        drawCornerOrnaments(ctx, w, h, 18, '#fbbf24', 0.2);
         ctx.globalAlpha = 1;
       }},
     ],
@@ -763,15 +1106,56 @@
       "As the festive lights shine bright, we invite you to join us in celebrating this special occasion with love and joy.",
       "On this auspicious occasion, we extend our warmest wishes and invite you to share in the celebrations.",
     ],
+    babyshower: [
+      "A little one is on the way! Join us for a joyful baby shower celebration filled with love, laughter, and warm wishes.",
+      "We're expecting! Come shower the parents-to-be with love and blessings at our upcoming baby shower.",
+      "Tiny hands, tiny feet, love so sweet. You're invited to our baby shower to celebrate this wonderful blessing!",
+      "A bundle of joy is almost here! Help us celebrate this special milestone at our baby shower party.",
+    ],
+    graduation: [
+      "The tassels are worth the hassle! Join us in celebrating this milestone achievement at our graduation ceremony.",
+      "From late nights to bright futures — you're invited to celebrate our graduate's incredible journey and new beginnings.",
+      "They did it! Come honor our graduate as they step into a new chapter of life and achievement.",
+      "Class is dismissed, but the celebration is just beginning! Join us for a farewell graduation party.",
+    ],
+    anniversary: [
+      "Love grows stronger with each passing year. Join us as we celebrate another beautiful year together.",
+      "Two hearts, one incredible journey. You're invited to our anniversary celebration filled with love and memories.",
+      "Cheers to the years of love, laughter, and happily ever after. Celebrate our special day with us!",
+      "Our love story continues! Join us for an evening of romance and celebration as we mark this special milestone.",
+    ],
+    business: [
+      "You're cordially invited to an exclusive business event featuring industry leaders, innovative ideas, and great networking.",
+      "Join us for a professional gathering where ideas spark, connections form, and the future takes shape.",
+      "Save the date for an inspiring conference bringing together the brightest minds in the industry.",
+      "An evening of innovation, collaboration, and excellence awaits. You're invited to our business event.",
+    ],
+    housewarming: [
+      "Our new home is ready and so are we! Come celebrate this exciting new chapter at our housewarming party.",
+      "Home sweet home! Join us for a cozy housewarming celebration as we settle into our beautiful new space.",
+      "We've moved in and the door is open! Come share in our joy at our housewarming celebration.",
+      "A new address, a new beginning. You're warmly invited to our housewarming — the first of many gatherings to come.",
+    ],
   };
 
   /* ==========================================
      TEXT COLOR PER CATEGORY/TEMPLATE
      ========================================== */
   function getTextColor(category, templateIndex) {
-    if (category === 'wedding') return '#2d1b4e';
-    if (category === 'formal' && templateIndex === 1) return '#4a3520';
-    return '#ffffff';
+    var colors = {
+      birthday: ['#ffffff','#ffffff','#3d1f00','#ffffff','#5a1a3a','#ffffff'],
+      wedding: ['#2d1b4e','#1a0a2e','#3d2b1a','#0a2e1a','#3d2b1a','#4a1a00'],
+      party:   ['#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#e0f0ff'],
+      formal:  ['#e0e0e0','#4a3520','#ffffff','#e0e0e0','#f5e6d8','#d4d4d8'],
+      festival:['#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff'],
+      babyshower:['#ffffff','#ffffff','#2d1b00','#ffffff','#ffffff','#2d1b00'],
+      graduation:['#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff'],
+      anniversary:['#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#d1d5db'],
+      business: ['#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#e0e0e0'],
+      housewarming:['#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff']
+    };
+    var arr = colors[category];
+    return (arr && arr[templateIndex]) ? arr[templateIndex] : '#ffffff';
   }
 
   /* ==========================================
@@ -795,34 +1179,36 @@
     var H = cardCanvas.height;
     cardCtx.clearRect(0, 0, W, H);
 
-    /* Draw template background (image + overlay + ornaments) */
     var templates = TEMPLATES[state.category];
-    if (templates && templates[state.templateIndex]) {
-      templates[state.templateIndex].draw(cardCtx, W, H);
+    var tmpl = templates ? templates[state.templateIndex] : null;
+    if (tmpl) {
+      tmpl.draw(cardCtx, W, H);
     } else {
       cardCtx.fillStyle = '#1a1a2e'; cardCtx.fillRect(0, 0, W, H);
     }
 
+    var d = (tmpl && tmpl.design) || {};
     var tc = getTextColor(state.category, state.templateIndex);
     var pad = W * 0.1;
     var contentW = W - pad * 2;
 
-    /* Frosted glass text panel - always adapts to text color */
-    cardCtx.save();
+    var pRadius = d.panelRadius || 16;
+    var pTint = d.panelTint != null ? d.panelTint : 0.3;
     var isLightText = (tc.charAt(1) === 'f' || tc.charAt(1) === 'F');
-    cardCtx.fillStyle = isLightText ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.65)';
-    roundRect(cardCtx, pad - 12, H * 0.12, contentW + 24, H * 0.76, 16);
+
+    cardCtx.save();
+    cardCtx.fillStyle = isLightText ? ('rgba(0,0,0,' + pTint + ')') : ('rgba(255,255,255,' + (pTint + 0.35) + ')');
+    roundRect(cardCtx, pad - 12, H * 0.12, contentW + 24, H * 0.76, pRadius);
     cardCtx.fill();
     cardCtx.strokeStyle = isLightText ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
     cardCtx.lineWidth = 1;
-    roundRectStroke(cardCtx, pad - 12, H * 0.12, contentW + 24, H * 0.76, 16);
+    roundRectStroke(cardCtx, pad - 12, H * 0.12, contentW + 24, H * 0.76, pRadius);
     cardCtx.restore();
 
     var curY = H * 0.18;
     cardCtx.textAlign = 'center';
     cardCtx.textBaseline = 'top';
 
-    /* -- Logo -- */
     if (false && logoLoaded && logoImg) {
       var logoH = 50;
       var logoW = logoImg.width * (logoH / logoImg.height);
@@ -830,56 +1216,61 @@
       curY += logoH + 12;
     }
 
-    /* -- Event Name (auto-sized) -- */
     var eventName = state.eventName || 'Your Event Name';
-    var headingFont = '"Playfair Display", serif';
-    var headingSize = fitFontSize(cardCtx, eventName, contentW, 24, 52, 'bold ' + headingFont);
-    cardCtx.font = 'bold ' + headingSize + 'px ' + headingFont;
+    var headingFont = d.headingFont || '"Playfair Display", serif';
+    var headingWeight = d.headingWeight || 'bold';
+    var headingMax = d.headingMax || 52;
+    var textXform = d.textTransform || 'none';
+    var dispName = textXform === 'uppercase' ? eventName.toUpperCase() : textXform === 'capitalize' ? eventName.replace(/\b\w/g, function(c){return c.toUpperCase();}) : eventName;
+    var headingSize = fitFontSize(cardCtx, dispName, contentW, 24, headingMax, headingWeight + ' ' + headingFont);
+    cardCtx.font = headingWeight + ' ' + headingSize + 'px ' + headingFont;
     cardCtx.fillStyle = tc;
-    cardCtx.shadowColor = 'rgba(0,0,0,0.3)';
-    cardCtx.shadowBlur = 6;
-    var headingResult = wrapText(cardCtx, eventName, W / 2, curY, contentW, headingSize * 1.3);
+    cardCtx.shadowColor = d.shadowColor || 'rgba(0,0,0,0.3)';
+    cardCtx.shadowBlur = d.shadowBlur || 6;
+    var headingResult = wrapText(cardCtx, dispName, W / 2, curY, contentW, headingSize * 1.3);
     cardCtx.shadowBlur = 0;
     curY = headingResult.endY + 10;
 
-    /* -- Divider -- */
-    if (state.category === 'wedding' || state.category === 'formal') {
-      drawFlourishDivider(cardCtx, W / 2, curY, contentW * 0.3, tc, 0.4);
-    } else {
-      drawDiamondDivider(cardCtx, W / 2, curY, contentW * 0.3, tc, 0.4);
-    }
+    var divType = d.divider || ((state.category === 'wedding' || state.category === 'formal') ? 'flourish' : 'diamond');
+    var divHalfW = contentW * 0.3;
+    if (divType === 'flourish') drawFlourishDivider(cardCtx, W / 2, curY, divHalfW, tc, 0.4);
+    else if (divType === 'dots') drawDotsDivider(cardCtx, W / 2, curY, divHalfW, tc, 0.4);
+    else if (divType === 'stars') drawStarsDivider(cardCtx, W / 2, curY, divHalfW, tc, 0.4);
+    else if (divType === 'hearts') drawHeartsDivider(cardCtx, W / 2, curY, divHalfW, tc, 0.4);
+    else if (divType === 'wave') drawWaveDivider(cardCtx, W / 2, curY, divHalfW, tc, 0.4);
+    else if (divType === 'line') drawLineDivider(cardCtx, W / 2, curY, divHalfW, tc, 0.3);
+    else drawDiamondDivider(cardCtx, W / 2, curY, divHalfW, tc, 0.4);
     curY += 24;
 
-    /* -- Host Name -- */
+    var bodyFont = d.bodyFont || '"Montserrat", sans-serif';
+    var bodyAlpha = d.bodyAlpha != null ? d.bodyAlpha : 0.9;
+
     if (state.hostName) {
-      var hostFont = '"Montserrat", sans-serif';
-      var hostSize = fitFontSize(cardCtx, 'Hosted by ' + state.hostName, contentW, 14, 22, '500 ' + hostFont);
-      cardCtx.font = '500 ' + hostSize + 'px ' + hostFont;
+      var hostSize = fitFontSize(cardCtx, 'Hosted by ' + state.hostName, contentW, 14, 22, '500 ' + bodyFont);
+      cardCtx.font = '500 ' + hostSize + 'px ' + bodyFont;
       cardCtx.fillStyle = tc;
-      cardCtx.globalAlpha = 0.9;
+      cardCtx.globalAlpha = bodyAlpha;
       wrapText(cardCtx, 'Hosted by ' + state.hostName, W / 2, curY, contentW, hostSize * 1.4);
       cardCtx.globalAlpha = 1;
       curY += hostSize * 1.4 + 8;
     }
 
-    /* -- Date & Time -- */
     var dateStr = formatDate(state.eventDate);
     if (dateStr) {
-      var dateSize = fitFontSize(cardCtx, dateStr, contentW, 13, 20, '"Montserrat", sans-serif');
-      cardCtx.font = dateSize + 'px "Montserrat", sans-serif';
+      var dateSize = fitFontSize(cardCtx, dateStr, contentW, 13, 20, bodyFont);
+      cardCtx.font = dateSize + 'px ' + bodyFont;
       cardCtx.fillStyle = tc;
-      cardCtx.globalAlpha = 0.8;
+      cardCtx.globalAlpha = bodyAlpha - 0.1;
       wrapText(cardCtx, dateStr, W / 2, curY, contentW, dateSize * 1.4);
       cardCtx.globalAlpha = 1;
       curY += dateSize * 1.4 + 6;
     }
 
-    /* -- Venue -- */
     if (state.eventVenue) {
-      var venueSize = fitFontSize(cardCtx, state.eventVenue, contentW * 0.85, 12, 18, '"Montserrat", sans-serif');
-      cardCtx.font = venueSize + 'px "Montserrat", sans-serif';
+      var venueSize = fitFontSize(cardCtx, state.eventVenue, contentW * 0.85, 12, 18, bodyFont);
+      cardCtx.font = venueSize + 'px ' + bodyFont;
       cardCtx.fillStyle = tc;
-      cardCtx.globalAlpha = 0.75;
+      cardCtx.globalAlpha = bodyAlpha - 0.15;
       var venueTextW = cardCtx.measureText(state.eventVenue).width;
       var pinSize = venueSize * 0.7;
       var pinX = W / 2 - venueTextW / 2 - pinSize - 6;
@@ -890,18 +1281,17 @@
       curY += venueSize * 1.4 + 6;
     }
 
-    /* -- Custom Message -- */
     if (state.eventMessage) {
       curY += 6;
-      var msgSize = fitFontSize(cardCtx, '\u201C' + state.eventMessage + '\u201D', contentW * 0.8, 14, 22, 'italic "Poppins", sans-serif');
-      cardCtx.font = 'italic ' + msgSize + 'px "Poppins", sans-serif';
+      var msgFont = d.messageFont || 'italic "Poppins", sans-serif';
+      var msgSize = fitFontSize(cardCtx, '\u201C' + state.eventMessage + '\u201D', contentW * 0.8, 14, 22, msgFont);
+      cardCtx.font = msgSize + 'px ' + msgFont;
       cardCtx.fillStyle = tc;
       cardCtx.globalAlpha = 0.7;
       wrapText(cardCtx, '\u201C' + state.eventMessage + '\u201D', W / 2, curY, contentW * 0.8, msgSize * 1.5);
       cardCtx.globalAlpha = 1;
     }
 
-    /* -- Footer Badge -- */
     cardCtx.font = '11px "Montserrat", sans-serif';
     cardCtx.fillStyle = tc;
     cardCtx.globalAlpha = 0.25;

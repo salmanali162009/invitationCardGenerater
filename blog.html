@@ -27,7 +27,7 @@
   <link rel="apple-touch-icon" href="assets/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Montserrat:wght@400;500;600;700&family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&family=Italiana&family=Orbitron:wght@400;700&family=Bebas+Neue&family=Pacifico&family=Amiri:ital,wght@0,400;1,400&family=Sacramento&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <link rel="stylesheet" href="style.css" />
@@ -80,10 +80,10 @@
         <span class="logo-text">Send<span class="logo-accent">Invite</span></span>
       </a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="index.html#generator">Card Generator</a></li>
-        <li><a href="index.html#custom">Custom Card</a></li>
-        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+        <li><a href="index.html#generator" data-i18n="nav_generator">Card Generator</a></li>
+        <li><a href="index.html#custom" data-i18n="nav_custom">Custom Card</a></li>
+        <li><a href="blog.html" class="active" data-i18n="nav_blog">Blog</a></li>
       </ul>
       <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu" aria-expanded="false">
         <i class="fa-solid fa-bars"></i>
@@ -94,8 +94,8 @@
   <!-- ===== BLOG HERO ===== -->
   <main>
     <section class="blog-hero" style="padding: 120px 24px 60px; text-align: center;">
-      <h1 class="section-title" style="font-size: clamp(28px, 5vw, 48px);">Invitation Tips &amp; Ideas</h1>
-      <p class="section-desc" style="max-width: 640px; margin: 12px auto 0; font-size: 17px;">Expert guides to help you create the perfect digital invitation for any occasion.</p>
+      <h1 class="section-title" style="font-size: clamp(28px, 5vw, 48px);" data-i18n="blog_hero_title">Invitation Tips &amp; Ideas</h1>
+      <p class="section-desc" style="max-width: 640px; margin: 12px auto 0; font-size: 17px;" data-i18n="blog_hero_desc">Expert guides to help you create the perfect digital invitation for any occasion.</p>
     </section>
 
     <!-- ===== BLOG GRID ===== -->
@@ -107,11 +107,11 @@
             <i class="fa-solid fa-heart blog-card-icon"></i>
           </div>
           <div class="blog-card-body">
-            <span class="blog-tag">Wedding</span>
-            <h3 class="blog-card-title">How to Create Free Digital Wedding Cards That Wow Your Guests</h3>
-            <p class="blog-card-excerpt">Digital wedding invitations are eco-friendly, cost-effective, and instantly shareable. Learn how to design stunning Save the Date cards and formal wedding invitations using free online tools — no design skills needed.</p>
+            <span class="blog-tag" data-i18n="blog_tag_wedding">Wedding</span>
+            <h3 class="blog-card-title" data-i18n="blog_title_1">How to Create Free Digital Wedding Cards That Wow Your Guests</h3>
+            <p class="blog-card-excerpt" data-i18n="blog_excerpt_1">Digital wedding invitations are eco-friendly, cost-effective, and instantly shareable. Learn how to design stunning Save the Date cards and formal wedding invitations using free online tools — no design skills needed.</p>
             <div class="blog-card-meta">
-              <span><i class="fa-regular fa-clock"></i> 5 min read</span>
+              <span><i class="fa-regular fa-clock"></i> <span data-i18n="blog_read_1">5 min read</span></span>
               <span><i class="fa-regular fa-calendar"></i> Jan 15, 2026</span>
             </div>
           </div>
@@ -122,11 +122,11 @@
             <i class="fa-solid fa-cake-candles blog-card-icon"></i>
           </div>
           <div class="blog-card-body">
-            <span class="blog-tag">Birthday</span>
-            <h3 class="blog-card-title">Best Birthday Invitation Templates for Kids and Adults in 2026</h3>
-            <p class="blog-card-excerpt">From whimsical kids' party themes to elegant milestone birthday designs, discover the best birthday invitation templates that are trending this year. Customize colors, fonts, and messages instantly.</p>
+            <span class="blog-tag" data-i18n="blog_tag_birthday">Birthday</span>
+            <h3 class="blog-card-title" data-i18n="blog_title_2">Best Birthday Invitation Templates for Kids and Adults in 2026</h3>
+            <p class="blog-card-excerpt" data-i18n="blog_excerpt_2">From whimsical kids' party themes to elegant milestone birthday designs, discover the best birthday invitation templates that are trending this year. Customize colors, fonts, and messages instantly.</p>
             <div class="blog-card-meta">
-              <span><i class="fa-regular fa-clock"></i> 4 min read</span>
+              <span><i class="fa-regular fa-clock"></i> <span data-i18n="blog_read_2">4 min read</span></span>
               <span><i class="fa-regular fa-calendar"></i> Feb 3, 2026</span>
             </div>
           </div>
@@ -137,11 +137,11 @@
             <i class="fa-solid fa-champagne-glasses blog-card-icon"></i>
           </div>
           <div class="blog-card-body">
-            <span class="blog-tag">Party</span>
-            <h3 class="blog-card-title">Modern Party Invite Trends: What's Hot in Digital Invitations</h3>
-            <p class="blog-card-excerpt">Minimalist designs, bold typography, and animated elements are dominating the party invitation scene. Explore the latest trends and learn how to create eye-catching digital invites for your next celebration.</p>
+            <span class="blog-tag" data-i18n="blog_tag_party">Party</span>
+            <h3 class="blog-card-title" data-i18n="blog_title_3">Modern Party Invite Trends: What's Hot in Digital Invitations</h3>
+            <p class="blog-card-excerpt" data-i18n="blog_excerpt_3">Minimalist designs, bold typography, and animated elements are dominating the party invitation scene. Explore the latest trends and learn how to create eye-catching digital invites for your next celebration.</p>
             <div class="blog-card-meta">
-              <span><i class="fa-regular fa-clock"></i> 6 min read</span>
+              <span><i class="fa-regular fa-clock"></i> <span data-i18n="blog_read_3">6 min read</span></span>
               <span><i class="fa-regular fa-calendar"></i> Mar 12, 2026</span>
             </div>
           </div>
@@ -152,11 +152,11 @@
             <i class="fa-solid fa-moon blog-card-icon"></i>
           </div>
           <div class="blog-card-body">
-            <span class="blog-tag">Festival</span>
-            <h3 class="blog-card-title">Beautiful Eid &amp; Festival Invitation Card Ideas to Share with Loved Ones</h3>
-            <p class="blog-card-excerpt">Celebrate Eid, Diwali, Christmas, and other festivals with beautifully crafted digital invitation cards. Find inspiration for culturally rich designs that honor your traditions while looking modern and elegant.</p>
+            <span class="blog-tag" data-i18n="blog_tag_festival">Festival</span>
+            <h3 class="blog-card-title" data-i18n="blog_title_4">Beautiful Eid &amp; Festival Invitation Card Ideas to Share with Loved Ones</h3>
+            <p class="blog-card-excerpt" data-i18n="blog_excerpt_4">Celebrate Eid, Diwali, Christmas, and other festivals with beautifully crafted digital invitation cards. Find inspiration for culturally rich designs that honor your traditions while looking modern and elegant.</p>
             <div class="blog-card-meta">
-              <span><i class="fa-regular fa-clock"></i> 5 min read</span>
+              <span><i class="fa-regular fa-clock"></i> <span data-i18n="blog_read_4">5 min read</span></span>
               <span><i class="fa-regular fa-calendar"></i> Apr 8, 2026</span>
             </div>
           </div>
@@ -167,11 +167,11 @@
             <i class="fa-solid fa-utensils blog-card-icon"></i>
           </div>
           <div class="blog-card-body">
-            <span class="blog-tag">Formal</span>
-            <h3 class="blog-card-title">How to Design Elegant Formal Dinner Invitations with AI Tools</h3>
-            <p class="blog-card-excerpt">Formal dinner parties demand sophisticated invitations. Learn how AI-powered card generators can help you create polished, professional dinner party invites with perfect typography and refined layouts.</p>
+            <span class="blog-tag" data-i18n="blog_tag_formal">Formal</span>
+            <h3 class="blog-card-title" data-i18n="blog_title_5">How to Design Elegant Formal Dinner Invitations with AI Tools</h3>
+            <p class="blog-card-excerpt" data-i18n="blog_excerpt_5">Formal dinner parties demand sophisticated invitations. Learn how AI-powered card generators can help you create polished, professional dinner party invites with perfect typography and refined layouts.</p>
             <div class="blog-card-meta">
-              <span><i class="fa-regular fa-clock"></i> 7 min read</span>
+              <span><i class="fa-regular fa-clock"></i> <span data-i18n="blog_read_5">7 min read</span></span>
               <span><i class="fa-regular fa-calendar"></i> May 20, 2026</span>
             </div>
           </div>
@@ -182,11 +182,11 @@
             <i class="fa-solid fa-wand-magic-sparkles blog-card-icon"></i>
           </div>
           <div class="blog-card-body">
-            <span class="blog-tag">Tips</span>
-            <h3 class="blog-card-title">5 Reasons Digital Invitation Cards Are Better Than Paper in 2026</h3>
-            <p class="blog-card-excerpt">Going digital with your invitations saves money, reduces waste, and allows real-time RSVP tracking. Discover why more people are switching to AI-generated digital cards for every occasion.</p>
+            <span class="blog-tag" data-i18n="blog_tag_tips">Tips</span>
+            <h3 class="blog-card-title" data-i18n="blog_title_6">5 Reasons Digital Invitation Cards Are Better Than Paper in 2026</h3>
+            <p class="blog-card-excerpt" data-i18n="blog_excerpt_6">Going digital with your invitations saves money, reduces waste, and allows real-time RSVP tracking. Discover why more people are switching to AI-generated digital cards for every occasion.</p>
             <div class="blog-card-meta">
-              <span><i class="fa-regular fa-clock"></i> 3 min read</span>
+              <span><i class="fa-regular fa-clock"></i> <span data-i18n="blog_read_6">3 min read</span></span>
               <span><i class="fa-regular fa-calendar"></i> Jun 1, 2026</span>
             </div>
           </div>
@@ -204,32 +204,33 @@
           <img src="assets/logo.png" alt="SendInvite Logo" class="logo-img"  />
           <span class="logo-text">Send<span class="logo-accent">Invite</span></span>
         </a>
-        <p class="footer-tagline">Create beautiful invitation cards for every occasion — free, fast, and endlessly customizable.</p>
+        <p class="footer-tagline" data-i18n="footer_tagline">Create beautiful invitation cards for every occasion — free, fast, and endlessly customizable.</p>
       </div>
       <div class="footer-links">
-        <h4>Quick Links</h4>
+        <h4 data-i18n="footer_quick_links">Quick Links</h4>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="index.html#generator">Template Generator</a></li>
-          <li><a href="index.html#custom">Custom Card</a></li>
-          <li><a href="blog.html">Blog</a></li>
+          <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+          <li><a href="index.html#generator" data-i18n="footer_link_generator">Template Generator</a></li>
+          <li><a href="index.html#custom" data-i18n="nav_custom">Custom Card</a></li>
+          <li><a href="blog.html" data-i18n="nav_blog">Blog</a></li>
         </ul>
       </div>
       <div class="footer-links">
-        <h4>Categories</h4>
+        <h4 data-i18n="footer_categories">Categories</h4>
         <ul>
-          <li><a href="index.html#generator">Birthday Cards</a></li>
-          <li><a href="index.html#generator">Wedding Cards</a></li>
-          <li><a href="index.html#generator">Party Invitations</a></li>
-          <li><a href="index.html#generator">Festival Cards</a></li>
+          <li><a href="index.html#generator" data-i18n="footer_cat_birthday">Birthday Cards</a></li>
+          <li><a href="index.html#generator" data-i18n="footer_cat_wedding">Wedding Cards</a></li>
+          <li><a href="index.html#generator" data-i18n="footer_cat_party">Party Invitations</a></li>
+          <li><a href="index.html#generator" data-i18n="footer_cat_festival">Festival Cards</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 SendInvite. All rights reserved. Designed with <i class="fa-solid fa-heart" style="color: var(--accent);"></i></p>
+      <p><span data-i18n="footer_copyright">&copy; 2026 SendInvite. All rights reserved. Designed with</span> <i class="fa-solid fa-heart" style="color: var(--accent);"></i></p>
     </div>
   </footer>
 
+  <script src="i18n.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
