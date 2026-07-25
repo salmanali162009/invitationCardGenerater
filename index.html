@@ -41,6 +41,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
 
   <!-- Schema.org Structured Data -->
   <script type="application/ld+json">
@@ -226,6 +227,15 @@
             <i class="fa-solid fa-robot"></i> <span data-i18n="btn_suggest">Suggest Message</span>
           </button>
 
+          <div class="format-selector" role="radiogroup" aria-label="Download format">
+            <button class="format-btn active" data-format="png" role="radio" aria-checked="true" type="button">
+              <i class="fa-solid fa-image"></i> <span data-i18n="format_png">PNG</span>
+            </button>
+            <button class="format-btn" data-format="pdf" role="radio" aria-checked="false" type="button">
+              <i class="fa-solid fa-file-pdf"></i> <span data-i18n="format_pdf">PDF</span>
+            </button>
+          </div>
+
           <button class="btn btn-primary btn-download" id="downloadBtn" type="button">
             <i class="fa-solid fa-download"></i> <span data-i18n="btn_download">Download Card</span>
           </button>
@@ -327,6 +337,15 @@
               <input type="color" id="customDescColor" class="color-picker" value="#E0E0E0" />
               <span class="color-value" id="descColorValue">#E0E0E0</span>
             </div>
+          </div>
+
+          <div class="format-selector" role="radiogroup" aria-label="Download format">
+            <button class="format-btn active" data-format="png" role="radio" aria-checked="true" type="button">
+              <i class="fa-solid fa-image"></i> <span data-i18n="format_png">PNG</span>
+            </button>
+            <button class="format-btn" data-format="pdf" role="radio" aria-checked="false" type="button">
+              <i class="fa-solid fa-file-pdf"></i> <span data-i18n="format_pdf">PDF</span>
+            </button>
           </div>
 
           <button class="btn btn-primary btn-download" id="customDownloadBtn" type="button">

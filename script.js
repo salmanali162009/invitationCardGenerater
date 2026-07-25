@@ -475,7 +475,7 @@
   var TEMPLATES = {
 
     birthday: [
-      { name: 'Royal Confetti', design: { headingFont: '"Playfair Display", serif', bodyFont: '"Montserrat", sans-serif', messageFont: 'italic "Poppins", sans-serif', headingWeight: 'bold', divider: 'flourish', shadowColor: 'rgba(0,0,0,0.35)', shadowBlur: 8, panelRadius: 16, panelTint: 0.3, textTransform: 'none', headingMax: 52, bodyAlpha: 0.9 }, draw: function (ctx, w, h) {
+      { name: 'Royal Confetti', design: { headingFont: '"Playfair Display", serif', bodyFont: '"Montserrat", sans-serif', messageFont: '"Poppins", sans-serif', headingWeight: 'bold', divider: 'flourish', shadowColor: 'rgba(0,0,0,0.35)', shadowBlur: 8, panelRadius: 16, panelTint: 0.3, textTransform: 'none', headingMax: 52, bodyAlpha: 0.9, msgMinSize: 15, msgMaxSize: 20, msgAlpha: 0.85, msgWidth: 0.85 }, draw: function (ctx, w, h) {
         drawImageBg(ctx, BG_IMAGES['birthday_0'], w, h, 'rgba(76,29,149,0.35)');
         drawOrnateFrame(ctx, w, h, 22, 30, '#d4a853', 0.5);
         drawCornerOrnaments(ctx, w, h, 22, '#d4a853', 0.45);
@@ -1284,11 +1284,15 @@
     if (state.eventMessage) {
       curY += 6;
       var msgFont = d.messageFont || 'italic "Poppins", sans-serif';
-      var msgSize = fitFontSize(cardCtx, '\u201C' + state.eventMessage + '\u201D', contentW * 0.8, 14, 22, msgFont);
+      var msgMin = d.msgMinSize || 14;
+      var msgMax = d.msgMaxSize || 22;
+      var msgW = d.msgWidth || 0.8;
+      var msgAlphaVal = d.msgAlpha != null ? d.msgAlpha : 0.7;
+      var msgSize = fitFontSize(cardCtx, '\u201C' + state.eventMessage + '\u201D', contentW * msgW, msgMin, msgMax, msgFont);
       cardCtx.font = msgSize + 'px ' + msgFont;
       cardCtx.fillStyle = tc;
-      cardCtx.globalAlpha = 0.7;
-      wrapText(cardCtx, '\u201C' + state.eventMessage + '\u201D', W / 2, curY, contentW * 0.8, msgSize * 1.5);
+      cardCtx.globalAlpha = msgAlphaVal;
+      wrapText(cardCtx, '\u201C' + state.eventMessage + '\u201D', W / 2, curY, contentW * msgW, msgSize * 1.5);
       cardCtx.globalAlpha = 1;
     }
 
@@ -1454,12 +1458,55 @@
      DOWNLOAD
      ========================================== */
   function downloadCanvas(canvas, filename) {
+    var fname = filename || 'sendinvite-card.png';
+    canvas.toBlob(function (blob) {
+      if (!blob) {
+        var link = document.createElement('a');
+        link.download = fname;
+        link.href = canvas.toDataURL('image/png');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        return;
+      }
+      var pngBlob = new Blob([blob], { type: 'image/png' });
+      var url = URL.createObjectURL(pngBlob);
+      var link = document.createElement('a');
+      link.download = fname;
+      link.href = url;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 100);
+    }, 'image/png');
+  }
+
+  function downloadCanvasAsPDF(canvas, filename) {
+    if (typeof window.jspdf === 'undefined') {
+      downloadCanvas(canvas, filename.replace(/\.pdf$/i, '.png'));
+      return;
+    }
+    var jsPDF = window.jspdf.jsPDF;
+    var cW = canvas.width;
+    var cH = canvas.height;
+    var isLandscape = cW >= cH;
+    var pdf = new jsPDF({
+      orientation: isLandscape ? 'landscape' : 'portrait',
+      unit: 'px',
+      format: [cW, cH],
+      hotfixes: ['px_scaling']
+    });
+    var imgData = canvas.toDataURL('image/png', 1.0);
+    pdf.addImage(imgData, 'PNG', 0, 0, cW, cH);
+    var pdfBlob = pdf.output('blob');
+    var pdfUrl = URL.createObjectURL(pdfBlob);
     var link = document.createElement('a');
-    link.download = filename || 'invitecraft-card.png';
-    link.href = canvas.toDataURL('image/png');
+    link.download = filename || 'sendinvite-card.pdf';
+    link.href = pdfUrl;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    setTimeout(function () { URL.revokeObjectURL(pdfUrl); }, 100);
   }
 
   /* ==========================================
@@ -1532,12 +1579,30 @@
       });
     }
 
+    /* Format selector toggle */
+    var selectedFormat = { template: 'png', custom: 'png' };
+    document.querySelectorAll('.format-selector').forEach(function (sel, idx) {
+      var key = idx === 0 ? 'template' : 'custom';
+      sel.querySelectorAll('.format-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          sel.querySelectorAll('.format-btn').forEach(function (b) { b.classList.remove('active'); b.setAttribute('aria-checked', 'false'); });
+          btn.classList.add('active');
+          btn.setAttribute('aria-checked', 'true');
+          selectedFormat[key] = btn.getAttribute('data-format');
+        });
+      });
+    });
+
     var downloadBtn = document.getElementById('downloadBtn');
     if (downloadBtn) {
       downloadBtn.addEventListener('click', function () {
-        var name = state.eventName || 'invitecraft-card';
+        var name = state.eventName || 'sendinvite-card';
         var safeName = name.replace(/[^a-zA-Z0-9-_ ]/g, '').replace(/\s+/g, '-').toLowerCase();
-        downloadCanvas(cardCanvas, safeName + '.png');
+        if (selectedFormat.template === 'pdf') {
+          downloadCanvasAsPDF(cardCanvas, safeName + '.pdf');
+        } else {
+          downloadCanvas(cardCanvas, safeName + '.png');
+        }
       });
     }
 
@@ -1652,7 +1717,13 @@
       customDesc.addEventListener('input', function () { customState.desc = customDesc.value; renderCustomCard(); });
       customDescColor.addEventListener('input', function () { customState.descColor = customDescColor.value; descColorValue.textContent = customDescColor.value; renderCustomCard(); });
       var customDownloadBtn = document.getElementById('customDownloadBtn');
-      if (customDownloadBtn) customDownloadBtn.addEventListener('click', function () { downloadCanvas(customCanvas, 'invitecraft-custom-card.png'); });
+      if (customDownloadBtn) customDownloadBtn.addEventListener('click', function () {
+        if (selectedFormat.custom === 'pdf') {
+          downloadCanvasAsPDF(customCanvas, 'sendinvite-custom-card.pdf');
+        } else {
+          downloadCanvas(customCanvas, 'sendinvite-custom-card.png');
+        }
+      });
 
       /* Custom card share buttons */
       function buildCustomShareText() {
