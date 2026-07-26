@@ -1341,4 +1341,22 @@ button, input, select, textarea {
 .hero-content > *:nth-child(3) { animation-delay: 0.35s; }
 .hero-content > *:nth-child(4) { animation-delay: 0.5s; }
 .hero-content > *:nth-child(5) { animation-delay: 0.65s; }
+.footer-bottom{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.gsc-control-cse,
+.gsc-control-cse * {
+  background-color: #12122b !important;
+  /* Apni site ka dark color */
+  border-color: #333366 !important;
+  color: #ffffff !important;
+}
 
+/* Search input field */
+input.gsc-input {
+  background-color: #1c1c3c !important;
+  color: #ffffff !important;
+}
